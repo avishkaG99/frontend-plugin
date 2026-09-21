@@ -1,0 +1,11 @@
+{
+  "name": "areasim",
+  "owner": { "name": "Avishka G" },
+  "plugins": [
+    {
+      "name": "frontend-flow",
+      "source": "./harness/claude",
+      "description": "Spec-driven React delivery: spec, plan, test cases, build, gates, security and performance audit, commits and PRs."
+    }
+  ]
+}
