@@ -94,7 +94,14 @@ so the repo gains no dependency.
 | Roles worth keeping | whichever the cases need: super admin, tenant admin, architect/external |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
 
-First run installs Chromium once: `python3 -m playwright install chromium`.
+Capture or refresh a session — the person signs in, the agent never sees a credential:
+
+```bash
+python3 frontend-plugin/scripts/capture_auth.py tenant-admin
+python3 frontend-plugin/scripts/capture_auth.py --list     # what exists, and how old
+```
+
+It installs Chromium on first use and adds `.auth/` to `areasim-webapp/.gitignore`.
 
 ## Traps
 

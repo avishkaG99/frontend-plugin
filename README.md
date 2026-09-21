@@ -87,6 +87,16 @@ added to the app), signs in from a saved storage state rather than scripting an 
 provider, retries a failing case three times with a screenshot on the last, and writes a
 per-case table back into the spec.
 
+Sessions are captured by you, not by an agent:
+
+```bash
+python3 scripts/capture_auth.py <role>     # a browser opens; you sign in; the file is saved
+python3 scripts/capture_auth.py --list     # what exists, and how stale it is
+```
+
+No agent ever needs a password, and the saved file is gitignored, never printed and never
+pasted into a report.
+
 Statuses mean one thing each: `PASSED`, `FAILED` (the product misbehaved), `BLOCKED` (the
 case could not run — says nothing about the product), `SKIPPED` (with a reason). A case that
 only passed on attempt three is reported as flaky.
