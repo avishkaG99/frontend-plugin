@@ -91,8 +91,12 @@ so the repo gains no dependency.
 | API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
 | Sign-in | Microsoft Entra. Scripted login is not viable; save a storage state once and reuse it |
 | Storage state | `areasim-webapp/.auth/<role>.json` — gitignored, never printed, never committed |
-| Roles worth keeping | whichever the cases need: super admin, tenant admin, architect/external |
+| Roles worth keeping | `super-admin` (admin portal), `tenant-admin` (normal org user), `external-architect` (invited, external grants) |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
+
+Which account signs in for each role is chosen at capture time and deliberately not written
+down here — this plugin may be published, and a test account in a public repo is an
+invitation. The role name is the contract; the session file behind it is local.
 
 Capture or refresh a session — the person signs in, the agent never sees a credential:
 
