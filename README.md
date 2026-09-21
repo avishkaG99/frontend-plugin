@@ -13,8 +13,11 @@ core/                      project-neutral method (the part you reuse)
   skills/frontend-flow/    spec workflow, planning, conventions, test plan,
                            testing, security, performance, gates
   skills/git-flow/         branches, commits, PRs, review follow-up
-  agents/                  fe-spec fe-plan fe-test fe-build fe-verify fe-audit fe-git
-  commands/                /fe:spec /fe:plan /fe:test /fe:build /fe:audit
+  skills/web-verify/       real-browser runs: Python Playwright, storage-state auth,
+                           per-case results back into the spec
+  agents/                  fe-spec fe-plan fe-test fe-build fe-verify fe-audit
+                           fe-e2e fe-git
+  commands/                /fe:spec /fe:plan /fe:test /fe:build /fe:audit /fe:e2e
                            /git:commit /git:pr
   profile.template.md      copy this to start a new project
 
@@ -39,7 +42,8 @@ under `harness/` is generated: edit `core/` or `profiles/`, never the output.
 | 3 | `/fe:test` | Test cases derived from the acceptance criteria, before the code | yes |
 | 4 | `/fe:build` | One plan step with its tests, then the full gates, then updates the spec | per step |
 | 5 | `/fe:audit` | Security and performance findings on the diff | — |
-| 6 | `/git:commit`, `/git:pr` | Drafts the message and the PR body for approval | yes |
+| 6 | `/fe:e2e` | Runs the plan's browser cases against your local app, per-case results | before the browser opens |
+| 7 | `/git:commit`, `/git:pr` | Drafts the message and the PR body for approval | yes |
 
 The spec file is the unit of work, not the conversation. It carries the request, the plan,
 the test cases, the decisions and the log, so a new session picks it up and knows where
@@ -74,10 +78,38 @@ python3 scripts/sync.py --profile <name>            # regenerate harness/
 python3 scripts/sync.py --check                     # CI: fails if harness is stale
 ```
 
-## What it borrows from AI-DLC
+## Browser verification
+
+Lint, typecheck and the unit suite never open a browser, so every case the test plan marks
+as not automated stays unverified. `/fe:e2e` closes that: it reads those cases from the
+spec, runs them against your **local** dev server with Python `playwright` (no dependency
+added to the app), signs in from a saved storage state rather than scripting an identity
+provider, retries a failing case three times with a screenshot on the last, and writes a
+per-case table back into the spec.
+
+Statuses mean one thing each: `PASSED`, `FAILED` (the product misbehaved), `BLOCKED` (the
+case could not run — says nothing about the product), `SKIPPED` (with a reason). A case that
+only passed on attempt three is reported as flaky.
+
+## What it borrows
+
+### From AI-DLC
 
 [awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows) is the "one core,
 many harnesses" template. Four of its ideas are here, cut down for a single app:
 ambiguity resolved in writing before planning, a first step that runs end to end
 (skeleton-on), traceability from criterion to step to test, and a hard gate between plan
-and code. Its 33 stages, phase graph and reviewer agents are not.
+and code. Its stage format — each phase declaring what it consumes and produces — shapes
+`web-verify`. Its 33 stages, phase graph and reviewer agents are not here.
+
+### From web-app-tester
+
+[avishkaG99/plugins-official](https://github.com/avishkaG99/plugins-official/tree/main/plugins/web-app-tester)
+is the browser-testing pattern: a phased orchestrator, Python Playwright in a scratch run
+directory, structured per-case log lines, storage-state auth, retries with a screenshot on
+the last attempt, a mutations guard, and approval gates before the browser and before
+anything is posted.
+
+It is PR-driven and generates a plan from the pull request. `web-verify` is **local and
+spec-driven**: the cases come from the feature spec's test plan and the results go back to
+the same file, so nothing depends on a PR, a deployment URL or a comment thread.

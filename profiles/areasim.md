@@ -79,6 +79,23 @@ npm run test               # whole suite, ~4 minutes, 750+ files
 | Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` |
 | Ticket keys | `AR-` — the key belongs **in the branch name**, the jira flow reads it from there |
 
+## Browser verification
+
+Local only. There is no PR-driven or CI browser suite, and no Playwright in
+`areasim-webapp/package.json` — runs use Python `playwright` as a harness beside the app,
+so the repo gains no dependency.
+
+| Thing | This project |
+| --- | --- |
+| Dev server | `npm run dev` in `areasim-webapp/`, `http://localhost:3000` |
+| API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
+| Sign-in | Microsoft Entra. Scripted login is not viable; save a storage state once and reuse it |
+| Storage state | `areasim-webapp/.auth/<role>.json` — gitignored, never printed, never committed |
+| Roles worth keeping | whichever the cases need: super admin, tenant admin, architect/external |
+| Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
+
+First run installs Chromium once: `python3 -m playwright install chromium`.
+
 ## Traps
 
 - **No `:` in an i18n key.** i18next reads it as a namespace separator, so the string

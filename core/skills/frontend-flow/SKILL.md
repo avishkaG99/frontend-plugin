@@ -8,7 +8,8 @@ description: Spec-driven feature work in a React app — write or update a featu
 Spec-driven delivery for the React app described in the profile below. Six agents share
 this skill: `fe-spec` writes the spec, `fe-plan` plans from it, `fe-test` derives the test
 cases, `fe-build` implements one step at a time, `fe-verify` runs the gates and records the
-outcome, and `fe-audit` reviews security and performance. `fe-git` lands it.
+outcome, `fe-audit` reviews security and performance, and `fe-e2e` checks it in a real
+browser. `fe-git` lands it.
 
 ## The one rule that makes this work
 
@@ -41,6 +42,13 @@ standard. Read its neighbours before writing.
 | Check a change for security holes | [references/security.md](references/security.md) |
 | Check what a change costs to load and run | [references/performance.md](references/performance.md) |
 | Run the gates, decide if it is done | [references/quality-gates.md](references/quality-gates.md) |
+
+## Verifying in a real browser
+
+jsdom cannot click, navigate or paint, so every case the test plan marks as not automated
+is unverified until someone looks. The `web-verify` skill and the `fe-e2e` agent run those
+cases against a running app and write the results back into the spec. Load it when a change
+needs checking beyond the unit and integration suites.
 
 ## Landing the work
 

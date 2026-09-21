@@ -66,6 +66,20 @@ Run from `<the app directory>`:
 | Branch names | `<pattern, e.g. feat/ar-123-slug>` |
 | Ticket keys | `<prefix, e.g. AR- ; or none>` |
 
+## Browser verification
+
+| Thing | This project |
+| --- | --- |
+| Dev server | `<command>`, `<url>` |
+| Depends on | `<a backend that must also run, or none>` |
+| Sign-in | `<provider, and whether a scripted login is viable>` |
+| Storage state | `<gitignored path, e.g. .auth/<role>.json>` |
+| Roles worth keeping | `<the roles whose views actually differ>` |
+| Mutations | `<where data may be changed, and where it may never be>` |
+
+Delete this section when browser verification is not set up — the agents will then say a
+case cannot be checked rather than inventing a URL.
+
 ## Traps
 
 The things a competent newcomer gets wrong here. Two or three lines each, with the reason.

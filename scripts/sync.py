@@ -28,6 +28,7 @@ COMMANDS = {
     "fe-test": ("fe", "test"),
     "fe-build": ("fe", "build"),
     "fe-audit": ("fe", "audit"),
+    "fe-e2e": ("fe", "e2e"),
     "git-commit": ("git", "commit"),
     "git-pr": ("git", "pr"),
 }

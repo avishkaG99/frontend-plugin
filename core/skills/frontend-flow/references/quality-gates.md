@@ -40,6 +40,13 @@ Never imply a pass you did not see.
    still open.
 4. Name the next step, and stop.
 
+### What the gates do not cover
+
+Lint, typecheck and the unit suite all run without a browser. Anything the test plan marks
+as not automated — real pointers, real navigation, layout, a genuine sign-in — is still
+unverified when they pass. Say that in the report rather than implying the feature was seen
+working, and run the `web-verify` flow when it matters.
+
 ### Finishing a feature
 
 Every row ticked and gates green: set the spec's status to `Done`, append a closing log
