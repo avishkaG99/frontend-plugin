@@ -57,8 +57,11 @@ writes. Never `npx playwright`, never a Node runner, never a new dependency in t
 `package.json`. The app under test stays untouched: this is a harness, not a feature of the
 product.
 
-Chromium is installed once (`python3 -m playwright install chromium`) and cached. Check the
-cache before installing; the first run costs a minute, later runs cost nothing.
+Chromium is installed once and cached — check the cache before installing, because the
+first run costs a minute and later runs cost nothing.
+
+Where the interpreter lives is a per-project fact: see the profile. Use that one, not a
+bare `python3`, or the import will fail on a machine whose system Python has no playwright.
 
 ## Rules that hold for every run
 

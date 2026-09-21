@@ -25,7 +25,10 @@ GITIGNORE_LINE = ".auth/"
 
 
 def python_cmd():
-    """Windows ships `python`, macOS and Linux `python3`."""
+    """The plugin's venv when it exists — playwright lives there, not in the system python."""
+    venv = Path(__file__).resolve().parent.parent / ".venv" / "bin" / "python"
+    if venv.exists():
+        return str(venv)
     for candidate in ("python3", "python"):
         if subprocess.run(["command", "-v", candidate], shell=False,
                           capture_output=True).returncode == 0:

@@ -103,6 +103,10 @@ python3 frontend-plugin/scripts/capture_auth.py --list     # what exists, and ho
 
 It installs Chromium on first use and adds `.auth/` to `areasim-webapp/.gitignore`.
 
+The Playwright runtime lives in `frontend-plugin/.venv` (gitignored), so the app's
+`package.json` and your system Python both stay untouched. Scripts run as
+`frontend-plugin/.venv/bin/python`, never a bare `python3` and never `npx playwright`.
+
 ## Traps
 
 - **No `:` in an i18n key.** i18next reads it as a namespace separator, so the string
