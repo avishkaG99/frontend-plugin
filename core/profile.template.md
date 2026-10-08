@@ -85,9 +85,12 @@ case cannot be checked rather than inventing a URL.
 <!-- Where the regression library lives, one file per area. Delete this section if the
 project has none. -->
 
-| Area file | Prefix | Owns (for `--impacted`) |
-| --- | --- | --- |
-| `<area>.md` | `<ABC>` | `<paths whose changes impact this area>` |
+| Area file | Prefix |
+| --- | --- |
+| `<area>.md` | `<ABC>` |
+
+Ownership map for `--impacted`: `<library>/areas.json` (see `scripts/test_library.py`).
+Library script: `python3 frontend-plugin/scripts/test_library.py --app <app> --library <library> check|select|impacted`
 
 Run reports (library runs only): `<local folder, outside the repo>`
 

@@ -37,7 +37,9 @@ Load the `frontend-flow` skill first and follow `references/test-plan.md`,
 
 When asked to **promote** (the conductor's handoff, after the person says yes): write the
 approved `## Library changes` rows into the area file as `Active` or `Retired`, continue
-the ID sequence, and replace each spec row's ID with a pointer to its library ID.
+the ID sequence, replace each spec row's ID with a pointer to its library ID, rename each
+automated test to start with its case ID, and run the profile's library `check` until it
+passes. A new feature or route folder also gets its entry in the area ownership file.
 
 When asked to **backfill** an area: derive `Draft` rows from its existing feature specs and
 present them in one batch. Nothing becomes `Active` without the person's review.

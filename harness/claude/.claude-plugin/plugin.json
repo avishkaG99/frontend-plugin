@@ -1,0 +1,7 @@
+{
+  "name": "frontend-flow",
+  "version": "0.2.0",
+  "description": "Spec-driven React feature delivery — feature specs, plans, derived test cases, step-by-step implementation, quality gates, frontend security and performance review, and git conventions.",
+  "author": { "name": "Avishka G" },
+  "keywords": ["react", "frontend", "spec-driven", "testing", "security", "performance"]
+}

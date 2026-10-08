@@ -104,8 +104,21 @@ so the repo gains no dependency.
 | API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
 | Sign-in | Microsoft Entra. Scripted login is not viable; save a storage state once and reuse it |
 | Storage state | `areasim-webapp/.auth/<role>.json` — gitignored, never printed, never committed |
-| Roles worth keeping | `super-admin` (admin portal), `tenant-admin` (normal org user), `external-architect` (invited, external grants) |
+| Roles | one session per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
+
+| Session | App role | Use for |
+| --- | --- | --- |
+| `super-admin` | `SuperAdmin` (`isSuperAdmin`) | the admin portal: tenants, templates, platform settings |
+| `org-admin` | `Admin` | everything inside one organization: members, roles, structure, billing |
+| `org-manager` | `Manager` | managing projects and teams without organization-admin rights |
+| `org-member` | `Member` | the everyday user: what a member can see and must not be able to change |
+| `architect` *(later)* | `Architect` (external) | an invited outside party, reaching only assigned projects |
+| `landlord` *(later)* | `Landlord` (external) | an invited building owner, reaching only assigned projects |
+
+Use one test organization for the three org sessions, so a permission case compares the
+same data across roles. Permission cases (Type `Permission`) run under the lowest role
+that must be refused, not under `org-admin`.
 
 Which account signs in for each role is chosen at capture time and deliberately not written
 down here — this plugin may be published, and a test account in a public repo is an
@@ -114,7 +127,7 @@ invitation. The role name is the contract; the session file behind it is local.
 Capture or refresh a session — the person signs in, the agent never sees a credential:
 
 ```bash
-python3 frontend-plugin/scripts/capture_auth.py tenant-admin
+python3 frontend-plugin/scripts/capture_auth.py org-admin   # super-admin, org-manager, org-member
 python3 frontend-plugin/scripts/capture_auth.py --list     # what exists, and how old
 ```
 
@@ -130,18 +143,32 @@ Use cases and regression test cases, one Markdown file per area, in
 `areasim-webapp/React-Specs/test-cases/` (format and rules: its `README.md`). Committed
 with the code; results are not.
 
-| Area file | Prefix | Owns (for `--impacted`) |
-| --- | --- | --- |
-| `projects.md` | `PRJ` | `src/features/projects/` except `project-surveys/`, `src/routes/_authenticated/{project,projects,utilization-canvas}/` |
-| `surveys.md` | `SUR` | `src/features/projects/project-surveys/`, `src/features/{public-survey,organization-survey-templates}/`, `src/routes/_authenticated/surveys/`, `src/routes/survey.$token.tsx` |
-| `subscription.md` | `SUB` | `src/features/{subscription,pricing}/`, `src/routes/_authenticated/subscription/` |
-| `onboarding.md` | `ONB` | `src/features/{onboarding,welcome}/`, `src/routes/_authenticated/{onboarding,welcome,create-organization}/` |
-| `organization.md` | `ORG` | `src/features/{organization-structure,organizations,organization-switcher}/`, `src/routes/_authenticated/organization/` |
-| `super-admin.md` | `ADM` | `src/features/admin/`, `src/routes/_authenticated/admin/` |
-| `platform.md` | `PLT` | `src/features/{auth,authorization,dashboard,errors}/`, `src/routes/{(auth),(public)}/`, `src/components/layout/`, `src/lib/{auth,api}/` |
+| Area file | Prefix |
+| --- | --- |
+| `projects.md` | `PRJ` |
+| `surveys.md` | `SUR` |
+| `subscription.md` | `SUB` |
+| `onboarding.md` | `ONB` |
+| `organization.md` | `ORG` |
+| `super-admin.md` | `ADM` |
+| `platform.md` | `PLT` |
 
-A change under `src/components/`, `src/hooks/` or `src/lib/` outside those paths is shared:
-`--impacted` takes the areas whose code imports the changed file, and says so.
+Which code each area owns, the roles and the base branch are in
+`React-Specs/test-cases/areas.json` — the one source for `--impacted`. A new feature
+folder or route folder gets an entry there in the same change.
+
+The library script answers selection and validation the same way every time. Run from the
+workspace root:
+
+```bash
+L="frontend-plugin/scripts/test_library.py --app areasim-webapp --library React-Specs/test-cases"
+python3 $L check                        # IDs, columns, statuses, roles, test files exist
+python3 $L select --all                 # or --area surveys, or TC-/UC- IDs
+python3 $L --json impacted              # areas + Active cases the branch touches, vs origin/develop
+```
+
+(In zsh, write the arguments out rather than using `$L`: zsh does not split it into
+words.)
 
 Run reports (library runs only): `docs/test-runs/` in the workspace root — local, not in
 any repo.

@@ -19,15 +19,17 @@ Load the `frontend-flow` skill first and follow `references/quality-gates.md` an
    change, stop and say so rather than patching around it.
 3. **Separate pre-existing failures.** If a test fails for a reason unrelated to this
    change, report it as pre-existing with the evidence; do not fold it into the step.
-4. **Walk the project's Definition of Done**: scope matches the spec, no
+4. **Check the test-case library** when the change touched it: run the profile's library
+   `check`. Errors fail the gate like a lint error; warnings are reported.
+5. **Walk the project's Definition of Done**: scope matches the spec, no
    unrelated refactors, all locale files updated, loading and error states real, nothing
    internal leaking into user-visible errors, keyboard pass on new interactive UI.
-5. **Check the tests are worth having**: does each new test fail without the change? A
+6. **Check the tests are worth having**: does each new test fail without the change? A
    test that passes either way is noise.
-6. **Update the spec**: tick the plan row, append to the log under today's date what
+7. **Update the spec**: tick the plan row, append to the log under today's date what
    changed and what the run proved with real numbers, and set status to `Done` when every
    row is ticked.
-7. **Update the Flow status block**, if the spec has one: the build count ("3 of 5 steps"),
+8. **Update the Flow status block**, if the spec has one: the build count ("3 of 5 steps"),
    `Next` as the next unticked row, and tick `build` when none are left. When asked for the
    whole-change run, tick `verify` only if every gate passed on the full suite.
 

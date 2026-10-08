@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Capture a Playwright storage state for one role, by letting you sign in yourself.
 
-    scripts/capture_auth.py tenant-admin
-    scripts/capture_auth.py external-architect --url http://localhost:3000
+    scripts/capture_auth.py org-admin
+    scripts/capture_auth.py org-member --url http://localhost:3000
     scripts/capture_auth.py --list
 
 A browser window opens. Sign in as that role, get to a signed-in page, then close the
@@ -75,7 +75,7 @@ def summarise(path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("role", nargs="?", help="a name for this session, e.g. tenant-admin")
+    ap.add_argument("role", nargs="?", help="a name for this session, e.g. org-admin")
     ap.add_argument("--app", default=DEFAULT_APP, help=f"app directory (default: {DEFAULT_APP})")
     ap.add_argument("--url", default=DEFAULT_URL, help=f"URL to open (default: {DEFAULT_URL})")
     ap.add_argument("--list", action="store_true", help="list captured sessions and their age")

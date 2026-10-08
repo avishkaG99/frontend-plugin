@@ -1,5 +1,5 @@
 ---
-description: Verify the change in a real browser — run the spec's browser cases, report per case
+description: Run browser and regression cases locally — a spec's cases, or any slice of the test-case library (all, area, use case, IDs, impacted) — and report per case
 argument-hint: "[spec slug | TC-/UC- IDs | --all | --area <area> | --impacted] [--url <url>] [--bug <what to re-check>]"
 ---
 
@@ -9,8 +9,8 @@ Verify in a real browser. Target: $ARGUMENTS
 2. Resolve the cases:
    - a spec slug → the cases its test plan marks as not automated, plus its re-run list;
    - `TC-…` / `UC-…` IDs, `--area`, `--all` or `--impacted` → that slice of the test-case
-     library (path in the profile), `Active` rows only, selected per the frontend-flow
-     skill's `references/test-library.md`;
+     library, `Active` rows only, selected by the profile's library script (`select` or
+     `impacted`) — show its output as the case list;
    - `--bug` → a re-check of that behaviour, ending in a decisive check
      (`references/bug-recheck.md`).
    With no argument, use the spec with the most recent unfinished Flow status block, and

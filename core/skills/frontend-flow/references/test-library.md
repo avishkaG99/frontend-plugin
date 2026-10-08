@@ -24,7 +24,7 @@ Each area file has two sections, in this order.
 ## Use cases
 
 ### UC-SUR-02 — Compare Before and After results
-- **Actor:** tenant-admin
+- **Actor:** org-admin
 - **Goal:** see how scores changed between the two survey phases
 - **Preconditions:** a project with a closed Before survey
 - **Main flow:** 1. Open the project's Surveys tab. 2. Choose "Before vs After".
@@ -37,8 +37,8 @@ Each area file has two sections, in this order.
 
 | ID | UC | Title | Type | Role | Steps | Expected | Automated | Status | Added in |
 |---|---|---|---|---|---|---|---|---|---|
-| TC-SUR-004 | UC-SUR-02 | After missing shows a hint | Negative | tenant-admin | 1. Open a project with only a Before survey<br>2. Choose "Before vs After" | A hint names when the After survey closes; no chart renders | browser | Active | AR-760 |
-| TC-SUR-005 | UC-SUR-02 | Category deltas render | Happy | tenant-admin | 1. Open a project with both phases closed<br>2. Choose "Before vs After" | Each category shows Before, After and the change | `survey-comparison.test.tsx` | Active | AR-760 |
+| TC-SUR-004 | UC-SUR-02 | After missing shows a hint | Negative | org-admin | 1. Open a project with only a Before survey<br>2. Choose "Before vs After" | A hint names when the After survey closes; no chart renders | browser | Active | AR-760 |
+| TC-SUR-005 | UC-SUR-02 | Category deltas render | Happy | org-admin | 1. Open a project with both phases closed<br>2. Choose "Before vs After" | Each category shows Before, After and the change | `survey-comparison.test.tsx` | Active | AR-760 |
 ```
 
 - **IDs** are `UC-<AREA>-NN` and `TC-<AREA>-NNN`, using the area prefixes from the profile.
@@ -48,14 +48,27 @@ Each area file has two sections, in this order.
 - **Steps**: one action per step, `<br>` between them so the table stays one row per case.
   Concrete: the page, the control's visible label, the data it needs.
 - **Expected**: what a person can observe. "Works" is not an expected result.
-- **Automated**: the Vitest file (and test name when the file holds several), or `browser`
-  for a Playwright case, or `manual` with the reason in a note under the table.
+- **Automated**: the test file in backticks, or `browser` for a Playwright case, or
+  `manual` with the reason in a note under the table. The test itself carries the case ID
+  at the start of its name — `it('TC-SUR-005 renders a change per category', …)` — so
+  `vitest run <file> -t TC-SUR-005` runs exactly that case, and the library check can see
+  the link.
 - **Status**: `Active` runs. `Draft` is proposed and awaiting approval, and never runs.
   `Retired` stays in the table with the ticket that retired it, and never runs.
 - **Added in**: the ticket key, or the spec slug when there is none.
 
 No results in the library. A run's outcome goes to a run report (see the profile for
 where), so the file only changes when what the app must do changes.
+
+### The library script
+
+When the profile names a library script, use it rather than reading the tables by eye:
+`check` validates the library (unique permanent IDs, columns, statuses, roles, use cases,
+test files that exist and mention their ID), `select` lists the `Active` cases for a scope,
+and `impacted` maps the branch's changes to areas through the ownership file and lists
+their cases. Its output is what the person sees, so a selection is never a judgement call.
+
+Run `check` after every edit to the library; a library that fails it is not committed.
 
 ### Choosing what to run
 
@@ -108,6 +121,8 @@ Nothing reaches the library unapproved, and declining costs nothing:
    retire.
 2. **On a yes**, write them into the area file with `Status: Active` (or `Retired`), and
    replace each promoted spec row's ID with a pointer: `T-4 → TC-SUR-004`.
+   Rename each automated test so its name starts with the new ID, then run the library
+   check. A failing check is fixed before the commit, not after.
 3. **On a no**, leave the rows as `Draft` in the spec and log the decision. A later run
    never blocks or nags because a proposal is outstanding.
 

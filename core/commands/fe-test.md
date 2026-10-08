@@ -1,5 +1,5 @@
 ---
-description: Derive a numbered test plan from an approved spec, then optionally implement the cases
+description: Derive a numbered test plan from an approved spec, check it against the test-case library, then optionally implement, promote or backfill cases
 argument-hint: "[spec slug] [--implement] [--promote] [--backfill <area>]"
 ---
 
