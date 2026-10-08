@@ -6,7 +6,7 @@ quality gates, security and UI audit, a real-browser run as each user role, and 
 commit, PR and ticket drafts. It stops for a person at every decision that matters.
 
 <p align="center">
-  <img src="docs/flow.svg" alt="frontend-flow: spec, you approve, plan, you approve, test plan, branch, build loop, verify, audit, browser run, handoff with library, commit, PR and Jira drafts, done" width="100%">
+  <img src="docs/flow.svg" alt="frontend-flow: ticket, spec, you approve, plan, you approve, test plan, branch, build loop, verify, audit, browser run, handoff with library, commit, PR and Jira drafts, done" width="100%">
 </p>
 
 One project-neutral core, one small profile per project. Point it at another React
@@ -17,8 +17,11 @@ codebase by writing a new profile; the method does not change.
 - **The spec file is the unit of work, not the conversation.** Request, UI plan, plan,
   test plan, decisions and log all live in one file per feature, with a `## Flow status`
   block saying where it stands. Close the editor, open a new session, and it resumes.
+- **Every change has a ticket.** The flow finds it, or drafts a new one for approval,
+  before the spec is written — so the spec, branch, commits, PR and journal all share one
+  key. The branch is checked against it before building and before every commit.
 - **A person decides; agents do the work.** Two hard approvals (the spec, the plan) and
-  one per outgoing draft (commit, PR, ticket). Nothing is committed, pushed or posted
+  one per outgoing draft (new ticket, commit, PR, ticket update). Nothing is committed, pushed or posted
   without a yes.
 - **Small steps.** One plan step per build move, each with its tests and the full gates,
   so a wrong direction costs one step, not a feature.
@@ -51,10 +54,11 @@ agent that owns it, records the outcome in the spec, and stops.
 
 | # | Stage | Agent | What happens | Stops for you |
 | --- | --- | --- | --- | :---: |
+| 0 | ticket | conductor + tracker | Use the key given or the branch's; else find a matching open ticket; else draft a new one. Small chores may go without (`--no-ticket`) | **approve a new ticket** |
 | 1 | spec | `fe-spec` | Spec from the ticket and the code, with a UI plan and every open question in the file | **approve** |
 | 2 | plan | `fe-plan` | Ordered, file-level plan; step 1 is a thin slice that runs end to end | **approve** |
 | 3 | test-plan | `fe-test` | Cases from the acceptance criteria, before any code; what the regression library needs (re-run, add, amend, retire) | — |
-| 4 | branch | `fe-git` | Branch named from the ticket | yes |
+| 4 | branch | `fe-git` | Branch named from the ticket; checked again before every commit (pattern, same ticket, not the base branch) | yes |
 | 5 | build | `fe-build` → `fe-verify` | One plan step with its tests, then lint, typecheck and the test suite; a browser step check when a screen changed | before a browser opens |
 | 6 | verify | `fe-verify` | Full gates on the whole change, Definition of Done, library check | — |
 | 7 | audit | `fe-audit` | Security, performance and design-system findings on the diff | if a finding needs a decision |
@@ -65,7 +69,7 @@ Every stage is also a command of its own:
 
 | Command | Does |
 | --- | --- |
-| `/fe:run [ticket \| slug] [--auto] [--status]` | Conduct a feature end to end |
+| `/fe:run [ticket \| slug \| request] [--auto] [--status] [--no-ticket]` | Conduct a feature end to end, starting from its ticket |
 | `/fe:spec <idea or ticket>` | Write or update the spec, then stop |
 | `/fe:plan` | Plan an approved spec, then stop |
 | `/fe:test [--implement] [--promote] [--backfill <area>]` | Test plan and library changes; implement, promote or backfill cases |

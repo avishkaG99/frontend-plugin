@@ -1,131 +1,137 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d"><title id="t">frontend-flow: one feature from spec to handoff</title><desc id="d">Spec, you approve, plan, you approve, test plan, branch, build loop per plan step with gates and browser step checks, verify, audit, browser run as each role, handoff with library, commit, PR and Jira drafts each approved, done. The spec file holds the state; the test-case library holds the regression cases and milestone run reports.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker><marker id="arrowViolet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/></marker><marker id="arrowTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/></marker></defs>
-<rect x="0.5" y="0.5" width="1199" height="719" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d"><title id="t">frontend-flow: one feature from spec to handoff</title><desc id="d">Ticket found or drafted (a new one needs your approval), spec, you approve, plan, you approve, test plan, branch, build loop per plan step with gates and browser step checks, verify, audit, browser run as each role, handoff with library, commit, PR and Jira drafts each approved, done. The spec file holds the state; the test-case library holds the regression cases and milestone run reports.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker><marker id="arrowViolet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/></marker><marker id="arrowTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="759" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
 <text x="40" y="52" font-size="24" font-weight="700" fill="#111827" text-anchor="start" >frontend-flow — one feature, start to finish</text>
 <text x="40" y="80" font-size="14.5" font-weight="400" fill="#6b7280" text-anchor="start" >/fe:run does one move at a time through the agent that owns it. Amber gates wait for you; the spec file remembers where it stands.</text>
-<line x1="165.0" y1="190" x2="187" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="257" y1="190" x2="279.0" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="425.0" y1="190" x2="447" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="517" y1="190" x2="539.0" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="685.0" y1="190" x2="714.0" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="860.0" y1="190" x2="949" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="1050" y1="265" x2="1050" y2="347.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="980.0" y1="395" x2="946.0" y2="395" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="800.0" y1="395" x2="766.0" y2="395" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="620.0" y1="395" x2="616" y2="395" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-<line x1="270" y1="395" x2="231" y2="395" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="95" y1="155" x2="95" y2="182.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="165.0" y1="230" x2="187" y2="230" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="257" y1="230" x2="279.0" y2="230" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="425.0" y1="230" x2="447" y2="230" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="517" y1="230" x2="539.0" y2="230" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="230" x2="714.0" y2="230" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="860.0" y1="230" x2="949" y2="230" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1050" y1="305" x2="1050" y2="387.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="980.0" y1="435" x2="946.0" y2="435" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="435" x2="766.0" y2="435" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="435" x2="616" y2="435" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="270" y1="435" x2="231" y2="435" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="65" y="109.0" width="360" height="46" rx="23" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="65" y="109.0" width="360" height="46" rx="23" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.0000;0.0000;0.0387;0.0452;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="113" y="138" font-size="17" font-weight="700" fill="#111827" text-anchor="start" >Ticket</text>
+<text x="177" y="137" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start" >AR key given, found, or drafted</text>
+<g><rect x="437" y="118" width="196" height="28" rx="14" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/><text x="535" y="137" font-size="12.5" font-weight="600" fill="#b45309" text-anchor="middle" >you approve a new ticket</text></g>
 <g>
-<rect x="25.0" y="148.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="25.0" y="148.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.0000;0.0000;0.0409;0.0477;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="95" y="182" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Spec</text>
-<text x="95" y="202" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-spec</text>
-<text x="95" y="220" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >UI plan, questions</text>
+<rect x="25.0" y="188.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="25.0" y="188.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.0463;0.0528;0.0915;0.0979;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="95" y="222" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Spec</text>
+<text x="95" y="242" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-spec</text>
+<text x="95" y="260" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >UI plan, questions</text>
 </g>
-<polygon points="225,160 255,190 225,220 195,190" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
-<polygon points="225,160 255,190 225,220 195,190" fill="#b45309" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.0537;0.0605;0.1332;0.1400;1.0000" values="0;0;1;1;0;0"/></polygon>
-<g fill="#b45309"><rect x="218" y="181" width="5" height="18" rx="1"/><rect x="227" y="181" width="5" height="18" rx="1"/></g>
-<g fill="#ffffff" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.0537;0.0605;0.1332;0.1400;1.0000" values="0;0;1;1;0;0"/><rect x="218" y="181" width="5" height="18" rx="1"/><rect x="227" y="181" width="5" height="18" rx="1"/></g>
-<text x="225" y="242" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle" >You approve</text>
-<text x="225" y="260" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >the spec</text>
+<polygon points="225,200 255,230 225,260 195,230" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+<polygon points="225,200 255,230 225,260 195,230" fill="#b45309" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1037;0.1101;0.1789;0.1854;1.0000" values="0;0;1;1;0;0"/></polygon>
+<g fill="#b45309"><rect x="218" y="221" width="5" height="18" rx="1"/><rect x="227" y="221" width="5" height="18" rx="1"/></g>
+<g fill="#ffffff" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1037;0.1101;0.1789;0.1854;1.0000" values="0;0;1;1;0;0"/><rect x="218" y="221" width="5" height="18" rx="1"/><rect x="227" y="221" width="5" height="18" rx="1"/></g>
+<text x="225" y="282" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle" >You approve</text>
+<text x="225" y="300" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >the spec</text>
 <g>
-<rect x="285.0" y="148.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="285.0" y="148.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1461;0.1529;0.1847;0.1915;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="355" y="182" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Plan</text>
-<text x="355" y="202" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-plan</text>
-<text x="355" y="220" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >file-level steps</text>
+<rect x="285.0" y="188.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="285.0" y="188.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1911;0.1976;0.2277;0.2341;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="355" y="222" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Plan</text>
+<text x="355" y="242" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-plan</text>
+<text x="355" y="260" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >file-level steps</text>
 </g>
-<polygon points="485,160 515,190 485,220 455,190" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
-<polygon points="485,160 515,190 485,220 455,190" fill="#b45309" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1975;0.2043;0.2770;0.2838;1.0000" values="0;0;1;1;0;0"/></polygon>
-<g fill="#b45309"><rect x="478" y="181" width="5" height="18" rx="1"/><rect x="487" y="181" width="5" height="18" rx="1"/></g>
-<g fill="#ffffff" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1975;0.2043;0.2770;0.2838;1.0000" values="0;0;1;1;0;0"/><rect x="478" y="181" width="5" height="18" rx="1"/><rect x="487" y="181" width="5" height="18" rx="1"/></g>
-<text x="485" y="242" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle" >You approve</text>
-<text x="485" y="260" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >the plan</text>
+<polygon points="485,200 515,230 485,260 455,230" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+<polygon points="485,200 515,230 485,260 455,230" fill="#b45309" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.2399;0.2463;0.3151;0.3216;1.0000" values="0;0;1;1;0;0"/></polygon>
+<g fill="#b45309"><rect x="478" y="221" width="5" height="18" rx="1"/><rect x="487" y="221" width="5" height="18" rx="1"/></g>
+<g fill="#ffffff" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.2399;0.2463;0.3151;0.3216;1.0000" values="0;0;1;1;0;0"/><rect x="478" y="221" width="5" height="18" rx="1"/><rect x="487" y="221" width="5" height="18" rx="1"/></g>
+<text x="485" y="282" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle" >You approve</text>
+<text x="485" y="300" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >the plan</text>
 <g>
-<rect x="545.0" y="148.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="545.0" y="148.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.2898;0.2967;0.3330;0.3398;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="615" y="182" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Test plan</text>
-<text x="615" y="202" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-test</text>
-<text x="615" y="220" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >cases + library</text>
-</g>
-<g>
-<rect x="720.0" y="148.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="720.0" y="148.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.3527;0.3595;0.3822;0.3890;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="790" y="182" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Branch</text>
-<text x="790" y="202" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-git</text>
-<text x="790" y="220" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >from the ticket</text>
-</g>
-<rect x="955.0" y="115.0" width="190" height="150" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="955.0" y="115.0" width="190" height="150" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.4147;0.4215;0.5013;0.5081;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="1050" y="141.0" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Build</text>
-<circle cx="1050" cy="190" r="30" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
-<text x="1050" y="194" font-size="13" font-weight="700" fill="#6b7280" text-anchor="middle" >×N</text>
-<text x="1050" y="235.0" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >fe-build → fe-verify</text>
-<text x="1050" y="252.0" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >→ browser step check</text>
-<g>
-<rect x="980.0" y="353.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="980.0" y="353.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.5255;0.5323;0.5596;0.5664;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="1050" y="387" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Verify</text>
-<text x="1050" y="407" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-verify</text>
-<text x="1050" y="425" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >all gates, DoD</text>
+<rect x="545.0" y="188.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="545.0" y="188.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.3273;0.3338;0.3682;0.3746;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="615" y="222" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Test plan</text>
+<text x="615" y="242" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-test</text>
+<text x="615" y="260" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >cases + library</text>
 </g>
 <g>
-<rect x="800.0" y="353.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="800.0" y="353.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.5800;0.5868;0.6140;0.6209;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="870" y="387" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Audit</text>
-<text x="870" y="407" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-audit</text>
-<text x="870" y="425" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >security, perf, UI</text>
+<rect x="720.0" y="188.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="720.0" y="188.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.3868;0.3933;0.4148;0.4212;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="790" y="222" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Branch</text>
+<text x="790" y="242" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-git</text>
+<text x="790" y="260" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >from the ticket</text>
+</g>
+<rect x="955.0" y="155.0" width="190" height="150" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="955.0" y="155.0" width="190" height="150" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.4456;0.4520;0.5276;0.5340;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="1050" y="181.0" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Build</text>
+<circle cx="1050" cy="230" r="30" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="1050" y="234" font-size="13" font-weight="700" fill="#6b7280" text-anchor="middle" >×N</text>
+<text x="1050" y="275.0" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >fe-build → fe-verify</text>
+<text x="1050" y="292.0" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >→ browser step check</text>
+<g>
+<rect x="980.0" y="393.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="980.0" y="393.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.5505;0.5570;0.5828;0.5892;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="1050" y="427" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Verify</text>
+<text x="1050" y="447" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-verify</text>
+<text x="1050" y="465" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >all gates, DoD</text>
 </g>
 <g>
-<rect x="620.0" y="353.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="620.0" y="353.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.6345;0.6413;0.6822;0.6890;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="690" y="387" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Browser run</text>
-<text x="690" y="407" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-e2e</text>
-<text x="690" y="425" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >as each role</text>
+<rect x="800.0" y="393.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="800.0" y="393.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.6022;0.6086;0.6344;0.6409;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="870" y="427" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Audit</text>
+<text x="870" y="447" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-audit</text>
+<text x="870" y="465" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >security, perf, UI</text>
 </g>
-<rect x="270.0" y="335.0" width="340" height="120" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="270.0" y="335.0" width="340" height="120" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7132;0.7200;0.8562;0.8630;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="440" y="363.0" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Handoff</text>
-<text x="440" y="382.0" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >each draft waits for your yes</text>
-<rect x="280.0" y="403.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
-<rect x="280.0" y="403.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7359;0.7404;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/></rect>
-<g opacity="1"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7359;0.7404;0.8562;0.8608;1.0000" values="1;1;0;0;1;1"/><text x="317.0" y="423.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >Library</text></g>
-<g opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7359;0.7404;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/><text x="317.0" y="423.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >Library ✓</text></g>
-<rect x="362.0" y="403.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
-<rect x="362.0" y="403.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7699;0.7745;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/></rect>
-<g opacity="1"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7699;0.7745;0.8562;0.8608;1.0000" values="1;1;0;0;1;1"/><text x="399.0" y="423.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >Commit</text></g>
-<g opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7699;0.7745;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/><text x="399.0" y="423.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >Commit ✓</text></g>
-<rect x="444.0" y="403.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
-<rect x="444.0" y="403.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8040;0.8085;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/></rect>
-<g opacity="1"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8040;0.8085;0.8562;0.8608;1.0000" values="1;1;0;0;1;1"/><text x="481.0" y="423.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >PR</text></g>
-<g opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8040;0.8085;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/><text x="481.0" y="423.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >PR ✓</text></g>
-<rect x="526.0" y="403.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
-<rect x="526.0" y="403.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8381;0.8426;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/></rect>
-<g opacity="1"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8381;0.8426;0.8562;0.8608;1.0000" values="1;1;0;0;1;1"/><text x="563.0" y="423.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >Jira</text></g>
-<g opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8381;0.8426;0.8562;0.8608;1.0000" values="0;0;1;1;0;0"/><text x="563.0" y="423.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >Jira ✓</text></g>
 <g>
-<rect x="75.0" y="360.0" width="150" height="70" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-<rect x="75.0" y="360.0" width="150" height="70" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="22.02s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8933;0.9001;0.9637;0.9705;1.0000" values="0;0;1;1;0;0"/></rect>
-<text x="150" y="391" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Done ✓</text>
+<rect x="620.0" y="393.0" width="140" height="84" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="620.0" y="393.0" width="140" height="84" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.6538;0.6602;0.6989;0.7054;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="690" y="427" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Browser run</text>
+<text x="690" y="447" font-size="12" font-weight="600" fill="#0f766e" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fe-e2e</text>
+<text x="690" y="465" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >as each role</text>
+</g>
+<rect x="270.0" y="375.0" width="340" height="120" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="270.0" y="375.0" width="340" height="120" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7283;0.7348;0.8638;0.8703;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="440" y="403.0" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Handoff</text>
+<text x="440" y="422.0" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >each draft waits for your yes</text>
+<rect x="280.0" y="443.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<rect x="280.0" y="443.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7498;0.7541;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/></rect>
+<g opacity="1"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7498;0.7541;0.8638;0.8681;1.0000" values="1;1;0;0;1;1"/><text x="317.0" y="463.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >Library</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7498;0.7541;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/><text x="317.0" y="463.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >Library ✓</text></g>
+<rect x="362.0" y="443.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<rect x="362.0" y="443.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7821;0.7864;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/></rect>
+<g opacity="1"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7821;0.7864;0.8638;0.8681;1.0000" values="1;1;0;0;1;1"/><text x="399.0" y="463.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >Commit</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.7821;0.7864;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/><text x="399.0" y="463.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >Commit ✓</text></g>
+<rect x="444.0" y="443.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<rect x="444.0" y="443.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8143;0.8186;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/></rect>
+<g opacity="1"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8143;0.8186;0.8638;0.8681;1.0000" values="1;1;0;0;1;1"/><text x="481.0" y="463.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >PR</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8143;0.8186;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/><text x="481.0" y="463.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >PR ✓</text></g>
+<rect x="526.0" y="443.0" width="74" height="30" rx="15" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<rect x="526.0" y="443.0" width="74" height="30" rx="15" fill="#0f766e" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8466;0.8509;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/></rect>
+<g opacity="1"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8466;0.8509;0.8638;0.8681;1.0000" values="1;1;0;0;1;1"/><text x="563.0" y="463.0" font-size="13" font-weight="600" fill="#b45309" text-anchor="middle" >Jira</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8466;0.8509;0.8638;0.8681;1.0000" values="0;0;1;1;0;0"/><text x="563.0" y="463.0" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >Jira ✓</text></g>
+<g>
+<rect x="75.0" y="400.0" width="150" height="70" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="75.0" y="400.0" width="150" height="70" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5" opacity="0"><animate attributeName="opacity" dur="23.25s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.8989;0.9054;0.9656;0.9720;1.0000" values="0;0;1;1;0;0"/></rect>
+<text x="150" y="431" font-size="18" font-weight="700" fill="#111827" text-anchor="middle" >Done ✓</text>
 
-<text x="150" y="413" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >spec Status: Done</text>
+<text x="150" y="453" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="middle" >spec Status: Done</text>
 </g>
-<rect x="40" y="545" width="640" height="96" rx="12" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
-<text x="60" y="575" font-size="16" font-weight="700" fill="#6d28d9" text-anchor="start" >The spec file — every stage writes here</text>
-<text x="60" y="600" font-size="13.5" font-weight="400" fill="#111827" text-anchor="start" >Flow status · UI plan · Plan · Test plan · Library changes · Decisions · Log</text>
-<text x="60" y="623" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >A new session reads it and resumes; the start-up hook lists features in progress.</text>
-<rect x="720" y="545" width="440" height="96" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
-<text x="740" y="575" font-size="16" font-weight="700" fill="#0f766e" text-anchor="start" >Test-case library — what must keep working</text>
-<text x="740" y="600" font-size="13.5" font-weight="400" fill="#111827" text-anchor="start" >Use cases + test cases per area · Smoke · Permission</text>
-<text x="740" y="623" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >Milestone run reports, with the environment tested</text>
-<line x1="720" y1="437.0" x2="860" y2="539" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrowTeal)"/>
-<line x1="560" y1="456" x2="780" y2="539" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrowTeal)"/>
-<text x="548" y="500" font-size="12" font-weight="400" fill="#0f766e" text-anchor="end" >promotes approved cases</text>
-<text x="868" y="478" font-size="12" font-weight="400" fill="#0f766e" text-anchor="start" >milestone report</text>
-<circle cx="52" cy="675" r="7" fill="#0f766e"/>
-<text x="66" y="680" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >current move</text>
-<polygon points="190,666 199,675 190,684 181,675" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
-<text x="208" y="680" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >waits for your approval</text>
-<line x1="390" y1="675" x2="430" y2="675" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 5"/>
-<text x="440" y="680" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >writes to</text>
-<text x="1160" y="680" font-size="13" font-weight="600" fill="#111827" text-anchor="end" >Nothing is committed, pushed or posted without a yes.</text>
-<g><circle r="11" fill="#0f766e" opacity="0.25"><animate attributeName="r" values="9;15;9" dur="1.2s" repeatCount="indefinite"/></circle><circle r="7" fill="#0f766e" stroke="#ffffff" stroke-width="2"/><animateMotion dur="22.02s" repeatCount="indefinite" calcMode="linear" keyPoints="0.0000;0.0000;0.0000;0.0521;0.0521;0.1041;0.1041;0.1562;0.1562;0.2083;0.2083;0.2783;0.2783;0.5575;0.5575;0.6396;0.6396;0.7117;0.7117;0.7837;0.7837;0.8839;0.8839;1.0000;1.0000;1.0000" keyTimes="0.0000;0.0000;0.0409;0.0605;0.1332;0.1529;0.1847;0.2043;0.2770;0.2967;0.3330;0.3595;0.3822;0.4877;0.5013;0.5323;0.5596;0.5868;0.6140;0.6413;0.6822;0.7200;0.8562;0.9001;0.9637;1.0000" path="M95,190 L225,190 L355,190 L485,190 L615,190 L790,190 L1050,190 L1020,190 A30,30 0 1,1 1080,190 A30,30 0 1,1 1020,190 A30,30 0 1,1 1080,190 A30,30 0 1,1 1020,190 L1050,190 L1050,395 L870,395 L690,395 L440,395 L150,395"/></g>
+<rect x="40" y="585" width="640" height="96" rx="12" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+<text x="60" y="615" font-size="16" font-weight="700" fill="#6d28d9" text-anchor="start" >The spec file — every stage writes here</text>
+<text x="60" y="640" font-size="13.5" font-weight="400" fill="#111827" text-anchor="start" >Flow status · UI plan · Plan · Test plan · Library changes · Decisions · Log</text>
+<text x="60" y="663" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >A new session reads it and resumes; the start-up hook lists features in progress.</text>
+<rect x="720" y="585" width="440" height="96" rx="12" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+<text x="740" y="615" font-size="16" font-weight="700" fill="#0f766e" text-anchor="start" >Test-case library — what must keep working</text>
+<text x="740" y="640" font-size="13.5" font-weight="400" fill="#111827" text-anchor="start" >Use cases + test cases per area · Smoke · Permission</text>
+<text x="740" y="663" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >Milestone run reports, with the environment tested</text>
+<line x1="720" y1="477.0" x2="860" y2="579" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrowTeal)"/>
+<line x1="560" y1="496" x2="780" y2="579" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrowTeal)"/>
+<text x="548" y="540" font-size="12" font-weight="400" fill="#0f766e" text-anchor="end" >promotes approved cases</text>
+<text x="868" y="518" font-size="12" font-weight="400" fill="#0f766e" text-anchor="start" >milestone report</text>
+<circle cx="52" cy="717" r="7" fill="#0f766e"/>
+<text x="66" y="722" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >current move</text>
+<polygon points="190,708 199,717 190,726 181,717" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+<text x="208" y="722" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >waits for your approval</text>
+<line x1="390" y1="717" x2="430" y2="717" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="440" y="722" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start" >writes to</text>
+<text x="1160" y="722" font-size="13" font-weight="600" fill="#111827" text-anchor="end" >Nothing is committed, pushed or posted without a yes.</text>
+<g><circle r="11" fill="#0f766e" opacity="0.25"><animate attributeName="r" values="9;15;9" dur="1.2s" repeatCount="indefinite"/></circle><circle r="7" fill="#0f766e" stroke="#ffffff" stroke-width="2"/><animateMotion dur="23.25s" repeatCount="indefinite" calcMode="linear" keyPoints="0.0000;0.0000;0.0000;0.0378;0.0378;0.0879;0.0879;0.1380;0.1380;0.1881;0.1881;0.2382;0.2382;0.3056;0.3056;0.5742;0.5742;0.6532;0.6532;0.7225;0.7225;0.7919;0.7919;0.8882;0.8882;1.0000;1.0000;1.0000" keyTimes="0.0000;0.0000;0.0387;0.0528;0.0915;0.1101;0.1789;0.1976;0.2277;0.2463;0.3151;0.3338;0.3682;0.3933;0.4148;0.5147;0.5276;0.5570;0.5828;0.6086;0.6344;0.6602;0.6989;0.7348;0.8638;0.9054;0.9656;1.0000" path="M95,132 L95,230 L225,230 L355,230 L485,230 L615,230 L790,230 L1050,230 L1020,230 A30,30 0 1,1 1080,230 A30,30 0 1,1 1020,230 A30,30 0 1,1 1080,230 A30,30 0 1,1 1020,230 L1050,230 L1050,435 L870,435 L690,435 L440,435 L150,435"/></g>
 </svg>

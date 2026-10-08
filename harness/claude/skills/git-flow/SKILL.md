@@ -17,8 +17,22 @@ wrong tree.
 
 Follow the project's pattern exactly, and **put the ticket key in the branch**: the tracker
 integration resolves the ticket from the branch name, so a branch without one makes every
-later step manual. When there is no ticket yet, create one or ask before branching without
-a key.
+later step manual. When there is no ticket yet, the ticket is settled first — found, or
+drafted and created on a yes — and only a small chore the person chose to do without one
+gets a branch with no key (`chore/<slug>`).
+
+### Checking the current branch
+
+Before the first build step of a feature and before every commit, check:
+
+1. **Pattern** — the branch matches the profile's pattern: type prefix, ticket key, slug.
+2. **Same ticket** — its key is the key of the work in hand (the spec's ticket), not
+   another feature's branch that happened to be checked out.
+3. **Not the base branch** — never build or commit on it directly.
+
+On any mismatch, stop and propose the fix — the exact `git switch -c <branch>` from the
+base, or the `git branch -m` rename — and wait. Never switch, rename or create a branch
+without a yes: it moves the person's uncommitted work out from under them.
 
 ## Commits
 
@@ -155,8 +169,9 @@ npm run test               # whole suite, ~4 minutes, 750+ files
 | --- | --- |
 | Base branch | `develop` (not `main`) |
 | Remote | `AreaSim-AS/areasim-webapp`, `AreaSim-AS/areasim-backend` |
-| Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` |
+| Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` — pattern `(feat\|fix\|chore)/ar-<number>-<slug>`, lower case; a ticket-less chore is `chore/<slug>` |
 | Ticket keys | `AR-` — the key belongs **in the branch name**, the jira flow reads it from there |
+| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: choose the issue type from the AR project's own types (the `jira` skill can list them; Change Request is used for changes to shipped features, e.g. AR-800). Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `docs/jira/<KEY>.md` |
 
 ## Browser verification
 

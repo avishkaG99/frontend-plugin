@@ -14,8 +14,9 @@ from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / "docs" / "flow.svg"
 
-W, H = 1200, 720
-ROW1, ROW2 = 190, 395
+W, H = 1200, 760
+ROW1, ROW2 = 230, 435
+TICKET_Y = 132
 SPEED = 300.0          # px per second for the moving token
 LOOP_R = 30            # radius of the build loop
 FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
@@ -30,6 +31,7 @@ C = {
 # kind: stage | gate | loop | handoff | done
 # (key, kind, x, y, title, agent, subtitle, hold seconds)
 STAGES = [
+    ("ticket", "ticket", 95, TICKET_Y, "Ticket", "", "find it, or draft one", 0.9),
     ("spec", "stage", 95, ROW1, "Spec", "fe-spec", "UI plan, questions", 0.9),
     ("g1", "gate", 225, ROW1, "You approve", "", "the spec", 1.6),
     ("plan", "stage", 355, ROW1, "Plan", "fe-plan", "file-level steps", 0.7),
@@ -216,6 +218,25 @@ def handoff(cx, cy, key, windows, total):
     return "\n".join(out)
 
 
+def ticket(cx, cy, key, windows, total):
+    """The ticket step: a pill above Spec, since everything after keys off it."""
+    w, h = 360, 46
+    x, y = cx - 30, cy - h / 2
+    start, end = windows[key]
+    return "\n".join([
+        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="23" fill="{C["node"]}" '
+        f'stroke="{C["nodeStroke"]}" stroke-width="1.5"/>',
+        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="23" fill="{C["tealSoft"]}" '
+        f'stroke="{C["teal"]}" stroke-width="2.5" opacity="0">'
+        + window_anim("opacity", "1", "0", start, end, total) + '</rect>',
+        text(cx + 18, cy + 6, "Ticket", 17, 700, anchor="start"),
+        text(cx + 82, cy + 5, "AR key given, found, or drafted", 12.5, 400, C["muted"], anchor="start"),
+        f'<g><rect x="{x + w + 12}" y="{cy - 14}" width="196" height="28" rx="14" fill="{C["amberSoft"]}" '
+        f'stroke="{C["amber"]}" stroke-width="1.2"/>'
+        + text(x + w + 110, cy + 5, "you approve a new ticket", 12.5, 600, C["amber"]) + '</g>',
+    ])
+
+
 def done(cx, cy, key, windows, total):
     return node_box(cx, cy, 150, 70, "Done ✓", "spec Status: Done", key, windows, total)
 
@@ -243,6 +264,7 @@ def main():
     edges = [("spec", "g1"), ("g1", "plan"), ("plan", "g2"), ("g2", "test"), ("test", "branch"),
              ("branch", "build")]
     half = {"stage": NODE_W / 2, "gate": 32, "loop": 95, "handoff": 170, "done": 75}
+    parts.append(arrow(S["ticket"][2], TICKET_Y + 23, S["spec"][2], S["spec"][3] - NODE_H / 2 - 6))
     for a, b in edges:
         _, ka, xa, ya, *_ = S[a]
         _, kb, xb, yb, *_ = S[b]
@@ -266,9 +288,11 @@ def main():
             parts.append(handoff(x, y, key, windows, total))
         elif kind == "done":
             parts.append(done(x, y, key, windows, total))
+        elif kind == "ticket":
+            parts.append(ticket(x, y, key, windows, total))
 
     # The two stores: the spec file and the test-case library.
-    lane_y = 545
+    lane_y = 585
     parts.append(f'<rect x="40" y="{lane_y}" width="640" height="96" rx="12" fill="{C["violetSoft"]}" '
                  f'stroke="{C["violet"]}" stroke-width="1.5"/>')
     parts.append(text(60, lane_y + 30, "The spec file — every stage writes here", 16, 700, C["violet"], anchor="start"))
@@ -288,11 +312,11 @@ def main():
     ex, ey = S["e2e"][2], S["e2e"][3]
     parts.append(arrow(ex + 30, ey + NODE_H / 2, 860, lane_y - 6, dashed=True, color=C["teal"], marker="arrowTeal"))
     parts.append(arrow(hx + 120, hy + 61, 780, lane_y - 6, dashed=True, color=C["teal"], marker="arrowTeal"))
-    parts.append(text(548, 500, "promotes approved cases", 12, 400, C["teal"], anchor="end"))
-    parts.append(text(868, 478, "milestone report", 12, 400, C["teal"], anchor="start"))
+    parts.append(text(548, 540, "promotes approved cases", 12, 400, C["teal"], anchor="end"))
+    parts.append(text(868, 518, "milestone report", 12, 400, C["teal"], anchor="start"))
 
     # Legend.
-    ly = 680
+    ly = 722
     parts.append(f'<circle cx="52" cy="{ly - 5}" r="7" fill="{C["teal"]}"/>')
     parts.append(text(66, ly, "current move", 13, 400, C["muted"], anchor="start"))
     parts.append(f'<polygon points="190,{ly - 14} 199,{ly - 5} 190,{ly + 4} 181,{ly - 5}" '
@@ -322,7 +346,7 @@ def main():
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
            f'font-family="{FONT}" role="img" aria-labelledby="t d">'
            f'<title id="t">frontend-flow: one feature from spec to handoff</title>'
-           f'<desc id="d">Spec, you approve, plan, you approve, test plan, branch, build loop per plan '
+           f'<desc id="d">Ticket found or drafted (a new one needs your approval), spec, you approve, plan, you approve, test plan, branch, build loop per plan '
            f'step with gates and browser step checks, verify, audit, browser run as each role, handoff '
            f'with library, commit, PR and Jira drafts each approved, done. The spec file holds the state; '
            f'the test-case library holds the regression cases and milestone run reports.</desc>'
