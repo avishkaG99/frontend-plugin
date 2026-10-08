@@ -744,7 +744,21 @@ written is what the spec says must work.
 
 ### Browser settings
 
-Headless Chromium, a 1280 × 1800 viewport, no full-page screenshots. Prefix every Python
+Headless Chromium, a 1280 × 1800 viewport, no full-page screenshots. With `--headed` the
+person wants to watch: launch a visible window with about 250 ms slow-mo and a slightly
+longer pause after each page settles, and tell them a window is about to open. Results are
+the same either way.
+
+### Waiting for a page to finish
+
+Network quiet is not the end of loading: data often arrives just after. After each
+navigation, wait for the network to settle **and** for loading skeletons
+(`.animate-pulse`, `[aria-busy=true]`) to disappear, up to about 20 seconds. A page still
+showing skeletons after that is reported as it is — and re-checked once, recording failed
+API calls, before anyone calls it a bug.
+
+Error detection matches error *phrases* ("something went wrong", "page not found",
+"forbidden"), never bare status numbers: a "404" in a street address is not an error. Prefix every Python
 call with `PYTHONUTF8=1` and open logs with `encoding="utf-8"`, so page text outside ASCII
 (Norwegian strings, here) cannot crash the run.
 
