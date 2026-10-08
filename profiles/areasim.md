@@ -89,8 +89,9 @@ npm run test               # whole suite, ~4 minutes, 750+ files
 | --- | --- |
 | Base branch | `develop` (not `main`) |
 | Remote | `AreaSim-AS/areasim-webapp`, `AreaSim-AS/areasim-backend` |
-| Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` |
+| Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` — pattern `(feat\|fix\|chore)/ar-<number>-<slug>`, lower case; a ticket-less chore is `chore/<slug>` |
 | Ticket keys | `AR-` — the key belongs **in the branch name**, the jira flow reads it from there |
+| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: Story for features, Bug for defects, Change Request for changes to shipped behaviour, Task otherwise. Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `docs/jira/<KEY>.md` |
 
 ## Browser verification
 

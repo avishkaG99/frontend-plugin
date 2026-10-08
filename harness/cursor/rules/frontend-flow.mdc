@@ -326,6 +326,7 @@ delegate to agents and ask the person a question.
 
 | # | Stage | Owner | Done when | Stops for the person |
 | --- | --- | --- | --- | :---: |
+| 0 | `ticket` | conductor + tracker integration | the work has a ticket key — found, or drafted and created on a yes — or the person chose no ticket for a chore | yes, to create one |
 | 1 | `spec` | `fe-spec` | spec written, every question answered, person says approved | **yes** |
 | 2 | `plan` | `fe-plan` | plan table written, person says approved | **yes** |
 | 3 | `test-plan` | `fe-test` | `## Test plan` table written; `## Library changes` lists the cases to re-run and the ones to add, amend or retire; automatable cases implemented if asked | — |
@@ -373,6 +374,7 @@ placed first among the sections this flow adds, above `## Plan`:
 | Waiting on | — |
 | Updated | 2026-10-08 |
 
+- [x] ticket — AR-123 (existing)
 - [x] spec — approved 2026-10-07
 - [x] plan — approved 2026-10-07
 - [x] test-plan — 14 cases, 9 automated
@@ -398,16 +400,50 @@ placed first among the sections this flow adds, above `## Plan`:
 Read the spec, not the conversation. In order:
 
 1. `Waiting on` is set → ask for that, and stop.
-2. Status is `Draft`, or a question has no answer → `spec`.
-3. No plan table, or the plan is not approved → `plan`.
-4. No `## Test plan` → `test-plan`.
-5. No branch with the ticket key in the app repo → `branch`.
-6. An unticked plan row → `build` that one row, then its step check if the row touches a
+2. No ticket key, and no recorded decision to work without one → `ticket`.
+3. Status is `Draft`, or a question has no answer → `spec`.
+4. No plan table, or the plan is not approved → `plan`.
+5. No `## Test plan` → `test-plan`.
+6. No branch with the ticket key in the app repo → `branch`.
+7. An unticked plan row → `build` that one row, then its step check if the row touches a
    visible screen.
-7. Then `verify`, `audit`, `e2e`, `handoff`, each unless already ticked.
+8. Then `verify`, `audit`, `e2e`, `handoff`, each unless already ticked.
 
 When the file and the code disagree — a row ticked whose code is not there, a branch named
 that does not exist — the code wins. Fix the block, log the difference, and say so.
+
+### The ticket comes first
+
+Every artefact keys off the ticket — the spec's name and Related line, the branch, the
+commits, the PR title, the tracker journal — so it is settled before the spec is written.
+
+1. **A key was given**, or the current branch carries one → read the ticket through the
+   project's tracker integration, and carry on.
+2. **No key** → search the tracker for open tickets that look like the request, and ask
+   "is it one of these?" Show at most five, with key, summary and status.
+3. **None fits** → draft a new ticket and show it: summary, a description written from the
+   request (problem, outcome, acceptance criteria as known), type, parent, assignee. On a
+   yes, the tracker integration creates it and starts its journal. On a no, ask what to
+   change. Never create a ticket unseen.
+4. **No ticket on purpose** — only for a small chore (a typo, a dependency bump, a config
+   tweak): the person says so, the branch is `chore/<slug>` without a key, and the spec's
+   log records why. Anything with user-visible behaviour gets a ticket.
+
+Record the outcome in Flow status: `Ticket` holds the key or `none — chore`, and the
+`ticket` line is ticked with how it was resolved (existing, created, none).
+
+### The branch check
+
+Before the first `build` move and before any commit, `fe-git` checks the app repo's
+current branch against the profile's pattern:
+
+- it matches the pattern (type prefix, ticket key, slug);
+- its key is **this** spec's key — not another ticket's branch left checked out;
+- it is not the base branch.
+
+Any mismatch stops the move with a proposal — the branch to create, or the rename — and
+waits. The conductor never switches, renames or creates a branch without a yes: it would
+move the person's uncommitted work out from under them.
 
 ### Pace
 
@@ -415,7 +451,7 @@ One move per `/fe:run`, then report and stop. The person decides when the next o
 
 `/fe:run --auto` keeps going without stopping between moves, but still stops at:
 
-- either approval gate, and every draft in `handoff`;
+- the ticket draft, either approval gate, and every draft in `handoff`;
 - any gate that fails and is not obviously this change's fault;
 - any question the agent cannot answer from the spec or the code;
 - any finding from `audit` rated high or above;
@@ -856,6 +892,7 @@ Decisions, Log.
 | Waiting on | — |
 | Updated | 2026-09-21 |
 
+- [x] ticket — AR-730 (existing)
 - [x] spec — approved 2026-09-20
 - [x] plan — approved 2026-09-20
 - [x] test-plan — 6 cases, 5 automated
@@ -918,10 +955,14 @@ plan row is ticked and the gates pass.
 
 ### Reading a ticket
 
-When the work carries a ticket key, read the ticket first — description, acceptance
-criteria, comments — through whatever tracker integration the project has (the `jira` skill,
-where it exists). Put the key in the spec's Related line. Nothing is written back to the
-tracker from this flow unless the person asks.
+Every spec starts from a ticket, settled before the spec is written (see
+[conductor.md](conductor.md), "The ticket comes first"). Read it first — description,
+acceptance criteria, comments — through the project's tracker integration (the `jira`
+skill, where it exists). Put the key in the spec's file name and Related line. A chore
+worked without a ticket says so in the Related line (`no ticket — chore: <reason>`).
+
+Nothing is written to the tracker without the person seeing the draft and saying yes —
+that includes creating the ticket.
 
 ### When the spec and the code disagree
 

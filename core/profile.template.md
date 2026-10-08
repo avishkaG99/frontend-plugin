@@ -65,6 +65,7 @@ Run from `<the app directory>`:
 | Remote | `<org/repo>` |
 | Branch names | `<pattern, e.g. feat/ar-123-slug>` |
 | Ticket keys | `<prefix, e.g. AR- ; or none>` |
+| Tracker | `<the tracker and its integration, issue types for new tickets, how a parent is chosen>` |
 
 ## Browser verification
 

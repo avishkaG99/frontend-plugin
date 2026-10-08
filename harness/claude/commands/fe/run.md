@@ -1,6 +1,6 @@
 ---
 description: Run a feature end to end — work out where it stands, do the next move, track it in the spec, and hand everything off when it is finished
-argument-hint: "[ticket key, spec slug or new request] [--auto] [--status]"
+argument-hint: "[ticket key, spec slug or new request] [--auto] [--status] [--no-ticket]"
 ---
 
 Conduct a frontend feature. Target: $ARGUMENTS
@@ -8,8 +8,12 @@ Conduct a frontend feature. Target: $ARGUMENTS
 1. Load the `frontend-flow` skill and follow `references/conductor.md`. You are the
    conductor: you delegate every move to the agent that owns it and write no product code
    yourself.
-2. **Resolve the spec.** A ticket key or slug → find its file in the feature-spec folder.
-   A new request with no spec → this is the `spec` stage. No argument → the spec with an
+2. **Resolve the ticket, then the spec.** A ticket key or slug → find its file in the
+   feature-spec folder. A new request → settle the ticket first, per the conductor
+   reference "The ticket comes first": use the key given or the branch's key; otherwise
+   search the tracker for a match and ask; otherwise draft a new ticket and create it only
+   on a yes. `--no-ticket` is for small chores only and is recorded in the log. Then this
+   is the `spec` stage. No argument → the spec with an
    unfinished Flow status block that was updated most recently; name it so the person can
    correct you.
 3. **Read the state** from the spec's `## Flow status` block. If there is none, add it,

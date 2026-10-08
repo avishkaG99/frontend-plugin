@@ -13,9 +13,10 @@ Load the `git-flow` skill first and follow it.
 1. **Find the repo** the change lives in — the skill's profile lists them, and says whether
    the directory you start in is itself a git repo. Report `git status` and the current
    branch before anything else.
-2. **Branching:** propose a name in the project's pattern, carrying the ticket key. Say
-   plainly when the current branch has no key, because the tracker integration resolves
-   tickets from the branch name.
+2. **Check the branch** per the `git-flow` skill's "Checking the current branch": the
+   pattern, that its key is the key of the work you were given, and that it is not the
+   base branch. Report the result in one line. On a mismatch, propose the exact command
+   (new branch from the base, or a rename) and stop — never run it.
 3. **Read the actual diff** before writing any message. `git diff` and `git diff --staged`,
    not the conversation — what is in the working tree is what ships.
 4. **Propose what to stage**, path by path. Flag anything that looks unrelated, generated,

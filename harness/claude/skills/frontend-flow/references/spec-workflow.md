@@ -31,6 +31,7 @@ Decisions, Log.
 | Waiting on | — |
 | Updated | 2026-09-21 |
 
+- [x] ticket — AR-730 (existing)
 - [x] spec — approved 2026-09-20
 - [x] plan — approved 2026-09-20
 - [x] test-plan — 6 cases, 5 automated
@@ -93,10 +94,14 @@ plan row is ticked and the gates pass.
 
 ### Reading a ticket
 
-When the work carries a ticket key, read the ticket first — description, acceptance
-criteria, comments — through whatever tracker integration the project has (the `jira` skill,
-where it exists). Put the key in the spec's Related line. Nothing is written back to the
-tracker from this flow unless the person asks.
+Every spec starts from a ticket, settled before the spec is written (see
+[conductor.md](conductor.md), "The ticket comes first"). Read it first — description,
+acceptance criteria, comments — through the project's tracker integration (the `jira`
+skill, where it exists). Put the key in the spec's file name and Related line. A chore
+worked without a ticket says so in the Related line (`no ticket — chore: <reason>`).
+
+Nothing is written to the tracker without the person seeing the draft and saying yes —
+that includes creating the ticket.
 
 ### When the spec and the code disagree
 

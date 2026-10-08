@@ -14,8 +14,22 @@ wrong tree.
 
 Follow the project's pattern exactly, and **put the ticket key in the branch**: the tracker
 integration resolves the ticket from the branch name, so a branch without one makes every
-later step manual. When there is no ticket yet, create one or ask before branching without
-a key.
+later step manual. When there is no ticket yet, the ticket is settled first — found, or
+drafted and created on a yes — and only a small chore the person chose to do without one
+gets a branch with no key (`chore/<slug>`).
+
+### Checking the current branch
+
+Before the first build step of a feature and before every commit, check:
+
+1. **Pattern** — the branch matches the profile's pattern: type prefix, ticket key, slug.
+2. **Same ticket** — its key is the key of the work in hand (the spec's ticket), not
+   another feature's branch that happened to be checked out.
+3. **Not the base branch** — never build or commit on it directly.
+
+On any mismatch, stop and propose the fix — the exact `git switch -c <branch>` from the
+base, or the `git branch -m` rename — and wait. Never switch, rename or create a branch
+without a yes: it moves the person's uncommitted work out from under them.
 
 ## Commits
 

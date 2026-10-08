@@ -16,10 +16,13 @@ Load the `frontend-flow` skill first and follow it, in particular
    the skill) for a spec covering this work.
    If one exists, you are updating it, not replacing it. Read the code the work touches —
    the spec describes a change to a real app, so name the real files.
-2. **Read the ticket** when a key is given or the branch carries one, through the project's
-   tracker integration: description, acceptance criteria, comments. Never write to it.
+2. **Read the ticket** — the conductor settles it before you start and passes the key.
+   Read it through the project's tracker integration: description, acceptance criteria,
+   comments. Never write to it. If you were started with no key and no recorded decision
+   to work without one, stop and say the ticket must be settled first.
 3. **Write the spec** from the project's spec template, into the feature-spec folder as
-   `<slug>-spec.md`. Status `Draft`.
+   `<key>-<slug>-spec.md` (lower-case key, e.g. `ar-812-zone-empty-state-spec.md`), or
+   `<slug>-spec.md` for a chore with no ticket. Status `Draft`.
 4. **Plan the UI**, when the work has a visible screen: shell, building blocks from the
    design system, a small wireframe, every state, the one primary action — per
    `references/ui-design.md` §1. Write user-facing copy in acceptance criteria per §3.
