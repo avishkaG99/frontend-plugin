@@ -1,6 +1,6 @@
 ---
 description: Run browser and regression cases locally — a spec's cases, or any slice of the test-case library (all, area, use case, IDs, impacted) — and report per case
-argument-hint: "[spec slug | TC-/UC- IDs | --all | --area <area> | --type <type> | --impacted] [--headed] [--url <url>] [--bug <what to re-check>]"
+argument-hint: "[spec slug | TC-/UC- IDs | --all | --area <area> | --type <type> | --impacted] [--headed | --headless] [--url <url>] [--bug <what to re-check>]"
 ---
 
 Verify in a real browser. Target: $ARGUMENTS
@@ -20,8 +20,9 @@ Verify in a real browser. Target: $ARGUMENTS
 3. Resolve the URL — the `--url` argument, then the environment in the profile, then the
    local dev server — and decide whether this run may mutate data. Stop if no URL resolves.
 4. Show the URL, the role, the read-only decision and the case list. Wait for approval
-   before opening a browser. With `--headed`, the browser opens visibly and slowed down so
-   the person can watch; say so before it opens.
+   before opening a browser. The window is visible or not per the profile's "Browser
+   window" setting, overridden by `--headed` or `--headless`; when it will be visible, say
+   so before it opens.
 5. Delegate to the `fe-e2e` agent for the Playwright session.
 6. Report per case with statuses that mean what they say, and name any failure with its
    screenshot. Every report opens with the environment block. A milestone run (`--all`, a

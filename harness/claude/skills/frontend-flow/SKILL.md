@@ -202,6 +202,7 @@ so the repo gains no dependency.
 | Credentials | `~/.config/frontend-flow/areasim/test-accounts.env`, filled in by the person, read only by `login.py`. Agents never open it — the `fe-guard-secrets` hook blocks it |
 | Roles | one test account per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
+| Browser window | **visible by default** (`headless=False`, ~250 ms slow-mo) so the person can watch every run; `--headless` only when they ask for a background run |
 
 | Role | App role | Use for |
 | --- | --- | --- |

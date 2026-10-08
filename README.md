@@ -75,7 +75,7 @@ Every stage is also a command of its own:
 | `/fe:test [--implement] [--promote] [--backfill <area>]` | Test plan and library changes; implement, promote or backfill cases |
 | `/fe:build` | Build the next plan step and run the gates |
 | `/fe:audit` | Security, performance and UI review of the diff |
-| `/fe:e2e [slug \| IDs \| --all \| --area <a> \| --type <t> \| --impacted] [--headed] [--bug <what>]` | Run cases in a real browser — `--headed` to watch it — or re-check a bug |
+| `/fe:e2e [slug \| IDs \| --all \| --area <a> \| --type <t> \| --impacted] [--headed \| --headless] [--bug <what>]` | Run cases in a real browser — visible or in the background, default from the profile — or re-check a bug |
 | `/git:commit`, `/git:pr` | Draft a commit or a PR for approval |
 
 ## Testing in three layers

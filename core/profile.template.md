@@ -77,6 +77,7 @@ Run from `<the app directory>`:
 | Storage state | `<gitignored path, e.g. .auth/<role>.json>` |
 | Roles worth keeping | `<the roles whose views actually differ>` |
 | Mutations | `<where data may be changed, and where it may never be>` |
+| Browser window | `<visible by default, or headless by default>` |
 
 Delete this section when browser verification is not set up — the agents will then say a
 case cannot be checked rather than inventing a URL.

@@ -114,10 +114,11 @@ written is what the spec says must work.
 
 ### Browser settings
 
-Headless Chromium, a 1280 × 1800 viewport, no full-page screenshots. With `--headed` the
-person wants to watch: launch a visible window with about 250 ms slow-mo and a slightly
-longer pause after each page settles, and tell them a window is about to open. Results are
-the same either way.
+A 1280 × 1800 viewport, no full-page screenshots. Whether the window is visible comes from
+the profile's "Browser window" setting, then the run's flag: `--headed` opens a visible
+window with about 250 ms slow-mo and a slightly longer pause after each page settles;
+`--headless` runs in the background. Tell the person before a visible window opens.
+Results are the same either way.
 
 ### Waiting for a page to finish
 
@@ -126,6 +127,11 @@ navigation, wait for the network to settle **and** for loading skeletons
 (`.animate-pulse`, `[aria-busy=true]`) to disappear, up to about 20 seconds. A page still
 showing skeletons after that is reported as it is — and re-checked once, recording failed
 API calls, before anyone calls it a bug.
+
+Some content is slow by nature — large images, previews rendered from files, reports. When
+a case's Expected gives a longer limit for it, use that limit, and report anything slower
+than the normal 20 s as a **slow** note with the time it took, not as a failure. A case
+fails on slowness only when its own limit is exceeded.
 
 Error detection matches error *phrases* ("something went wrong", "page not found",
 "forbidden"), never bare status numbers: a "404" in a street address is not an error. Prefix every Python
