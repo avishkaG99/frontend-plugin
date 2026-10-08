@@ -58,6 +58,13 @@ script before the real one: it walks the whole path and prints an accessibility 
 snapshots. One replay beats a scratch script per element, and it uses the same storage
 state as the run. Skip it for plain navigation and read-only checks.
 
+### Signing in
+
+With a scripted login (see [auth.md](auth.md)), call the profile's helper once per role at
+the top of the script, before the first case, and group the cases by role so each role
+signs in once. A `LoginBlocked` marks that role's cases `BLOCKED` with its message, and
+the cases for other roles still run.
+
 ### Finding elements
 
 Use the accessible name — role plus visible label — as the locator. Never a CSS path

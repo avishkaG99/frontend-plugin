@@ -18,6 +18,30 @@ tags: auth, storage-state, sso, roles, secrets
 Most screens worth verifying sit behind a login, so authentication is the part that decides
 whether browser verification is usable at all.
 
+Two ways, and the profile says which one this project uses:
+
+- **Scripted login through a helper the profile names** — when the app keeps its tokens
+  where a saved browser state cannot reach them (`sessionStorage`), or when sessions
+  expire too fast to keep. See "Scripted login" below.
+- **A saved storage state** — everywhere else. See the next section.
+
+### Scripted login
+
+The profile's login helper signs the run's page in once, at the start, as the role the
+cases need; every case then runs in that same page. Credentials live in a local file
+outside every repo, filled in by the person, and only the helper reads it.
+
+- **Never open, print, search, copy or edit the credentials file**, and never ask for a
+  password in chat. A hook blocks the ordinary ways of reading it; the rule holds anyway.
+  To see which roles are ready, use the helper's list command.
+- **One sign-in per run, one attempt.** A rejected password, a one-time-code prompt or a
+  federated account stops the run with `BLOCKED` and the helper's reason. Never retry a
+  rejected password: test accounts lock.
+- **Never screenshot the sign-in pages.** Screenshots start after the helper returns.
+- **Local only.** The helper refuses any URL that is not the local dev server.
+- A role whose password is missing is `BLOCKED — <role> not set up`, and the person fills
+  it in. Cases for other roles still run.
+
 ### Storage state, not a scripted login
 
 Log in **once**, by hand, and save the resulting browser state (cookies plus local storage)

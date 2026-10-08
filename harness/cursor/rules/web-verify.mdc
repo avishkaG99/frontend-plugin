@@ -211,36 +211,46 @@ so the repo gains no dependency.
 | --- | --- |
 | Dev server | `npm run dev` in `areasim-webapp/`, `http://localhost:3000` |
 | API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
-| Sign-in | Microsoft Entra. Scripted login is not viable; save a storage state once and reuse it |
-| Storage state | `areasim-webapp/.auth/<role>.json` — gitignored, never printed, never committed |
-| Roles | one session per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
+| Sign-in | Entra External ID (`areasimdevexternal.ciamlogin.com`), email then password. **Scripted login** via `frontend-plugin/scripts/login.py` — a saved storage state cannot work here: MSAL keeps tokens in `sessionStorage` (`src/lib/auth/msal-config.ts`), which Playwright never saves |
+| Credentials | `~/.config/frontend-flow/areasim/test-accounts.env`, filled in by the person, read only by `login.py`. Agents never open it — the `fe-guard-secrets` hook blocks it |
+| Roles | one test account per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
 
-| Session | App role | Use for |
+| Role | App role | Use for |
 | --- | --- | --- |
 | `super-admin` | `SuperAdmin` (`isSuperAdmin`) | the admin portal: tenants, templates, platform settings |
 | `org-admin` | `Admin` | everything inside one organization: members, roles, structure, billing |
 | `org-manager` | `Manager` | managing projects and teams without organization-admin rights |
 | `org-member` | `Member` | the everyday user: what a member can see and must not be able to change |
-| `architect` *(later)* | `Architect` (external) | an invited outside party, reaching only assigned projects |
+| `architect` | `Architect` (external) | an invited outside party, reaching only assigned projects |
 | `landlord` *(later)* | `Landlord` (external) | an invited building owner, reaching only assigned projects |
 
-Use one test organization for the three org sessions, so a permission case compares the
-same data across roles. Permission cases (Type `Permission`) run under the lowest role
+Use one test organization for the org accounts, so a permission case compares the same
+data across roles. Permission cases (Type `Permission`) run under the lowest role
 that must be refused, not under `org-admin`.
 
-Which account signs in for each role is chosen at capture time and deliberately not written
-down here — this plugin may be published, and a test account in a public repo is an
-invitation. The role name is the contract; the session file behind it is local.
+Which account signs in for each role, and the organization they share, live only in the
+local credentials file — never here: this plugin may be published, and a test account in a
+public repo is an invitation. The role name is the contract; the account behind it is
+local.
 
-Capture or refresh a session — the person signs in, the agent never sees a credential:
+Sign in from a run script, once per role:
 
-```bash
-python3 frontend-plugin/scripts/capture_auth.py org-admin   # super-admin, org-manager, org-member
-python3 frontend-plugin/scripts/capture_auth.py --list     # what exists, and how old
+```python
+sys.path.insert(0, "frontend-plugin/scripts")
+from login import sign_in, LoginBlocked
+landing = sign_in(page, "org-admin", "http://localhost:3000")
 ```
 
-It installs Chromium on first use and adds `.auth/` to `areasim-webapp/.gitignore`.
+Check which roles are ready, or try one sign-in by hand (prints only the role and the
+landing path, never an email or password):
+
+```bash
+frontend-plugin/.venv/bin/python frontend-plugin/scripts/login.py --list
+frontend-plugin/.venv/bin/python frontend-plugin/scripts/login.py org-admin [--headed]
+```
+
+`capture_auth.py` and `.auth/` storage states are not used for this app.
 
 The Playwright runtime lives in `frontend-plugin/.venv` (gitignored), so the app's
 `package.json` and your system Python both stay untouched. Scripts run as
@@ -322,6 +332,30 @@ tags: auth, storage-state, sso, roles, secrets
 
 Most screens worth verifying sit behind a login, so authentication is the part that decides
 whether browser verification is usable at all.
+
+Two ways, and the profile says which one this project uses:
+
+- **Scripted login through a helper the profile names** — when the app keeps its tokens
+  where a saved browser state cannot reach them (`sessionStorage`), or when sessions
+  expire too fast to keep. See "Scripted login" below.
+- **A saved storage state** — everywhere else. See the next section.
+
+### Scripted login
+
+The profile's login helper signs the run's page in once, at the start, as the role the
+cases need; every case then runs in that same page. Credentials live in a local file
+outside every repo, filled in by the person, and only the helper reads it.
+
+- **Never open, print, search, copy or edit the credentials file**, and never ask for a
+  password in chat. A hook blocks the ordinary ways of reading it; the rule holds anyway.
+  To see which roles are ready, use the helper's list command.
+- **One sign-in per run, one attempt.** A rejected password, a one-time-code prompt or a
+  federated account stops the run with `BLOCKED` and the helper's reason. Never retry a
+  rejected password: test accounts lock.
+- **Never screenshot the sign-in pages.** Screenshots start after the helper returns.
+- **Local only.** The helper refuses any URL that is not the local dev server.
+- A role whose password is missing is `BLOCKED — <role> not set up`, and the person fills
+  it in. Cases for other roles still run.
 
 ### Storage state, not a scripted login
 
@@ -620,6 +654,13 @@ script before the real one: it walks the whole path and prints an accessibility 
 (`page.locator("body").aria_snapshot()`) after each step. Pick every locator from those
 snapshots. One replay beats a scratch script per element, and it uses the same storage
 state as the run. Skip it for plain navigation and read-only checks.
+
+### Signing in
+
+With a scripted login (see [auth.md](auth.md)), call the profile's helper once per role at
+the top of the script, before the first case, and group the cases by role so each role
+signs in once. A `LoginBlocked` marks that role's cases `BLOCKED` with its message, and
+the cases for other roles still run.
 
 ### Finding elements
 

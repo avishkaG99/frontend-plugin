@@ -211,36 +211,46 @@ so the repo gains no dependency.
 | --- | --- |
 | Dev server | `npm run dev` in `areasim-webapp/`, `http://localhost:3000` |
 | API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
-| Sign-in | Microsoft Entra. Scripted login is not viable; save a storage state once and reuse it |
-| Storage state | `areasim-webapp/.auth/<role>.json` — gitignored, never printed, never committed |
-| Roles | one session per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
+| Sign-in | Entra External ID (`areasimdevexternal.ciamlogin.com`), email then password. **Scripted login** via `frontend-plugin/scripts/login.py` — a saved storage state cannot work here: MSAL keeps tokens in `sessionStorage` (`src/lib/auth/msal-config.ts`), which Playwright never saves |
+| Credentials | `~/.config/frontend-flow/areasim/test-accounts.env`, filled in by the person, read only by `login.py`. Agents never open it — the `fe-guard-secrets` hook blocks it |
+| Roles | one test account per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
 
-| Session | App role | Use for |
+| Role | App role | Use for |
 | --- | --- | --- |
 | `super-admin` | `SuperAdmin` (`isSuperAdmin`) | the admin portal: tenants, templates, platform settings |
 | `org-admin` | `Admin` | everything inside one organization: members, roles, structure, billing |
 | `org-manager` | `Manager` | managing projects and teams without organization-admin rights |
 | `org-member` | `Member` | the everyday user: what a member can see and must not be able to change |
-| `architect` *(later)* | `Architect` (external) | an invited outside party, reaching only assigned projects |
+| `architect` | `Architect` (external) | an invited outside party, reaching only assigned projects |
 | `landlord` *(later)* | `Landlord` (external) | an invited building owner, reaching only assigned projects |
 
-Use one test organization for the three org sessions, so a permission case compares the
-same data across roles. Permission cases (Type `Permission`) run under the lowest role
+Use one test organization for the org accounts, so a permission case compares the same
+data across roles. Permission cases (Type `Permission`) run under the lowest role
 that must be refused, not under `org-admin`.
 
-Which account signs in for each role is chosen at capture time and deliberately not written
-down here — this plugin may be published, and a test account in a public repo is an
-invitation. The role name is the contract; the session file behind it is local.
+Which account signs in for each role, and the organization they share, live only in the
+local credentials file — never here: this plugin may be published, and a test account in a
+public repo is an invitation. The role name is the contract; the account behind it is
+local.
 
-Capture or refresh a session — the person signs in, the agent never sees a credential:
+Sign in from a run script, once per role:
 
-```bash
-python3 frontend-plugin/scripts/capture_auth.py org-admin   # super-admin, org-manager, org-member
-python3 frontend-plugin/scripts/capture_auth.py --list     # what exists, and how old
+```python
+sys.path.insert(0, "frontend-plugin/scripts")
+from login import sign_in, LoginBlocked
+landing = sign_in(page, "org-admin", "http://localhost:3000")
 ```
 
-It installs Chromium on first use and adds `.auth/` to `areasim-webapp/.gitignore`.
+Check which roles are ready, or try one sign-in by hand (prints only the role and the
+landing path, never an email or password):
+
+```bash
+frontend-plugin/.venv/bin/python frontend-plugin/scripts/login.py --list
+frontend-plugin/.venv/bin/python frontend-plugin/scripts/login.py org-admin [--headed]
+```
+
+`capture_auth.py` and `.auth/` storage states are not used for this app.
 
 The Playwright runtime lives in `frontend-plugin/.venv` (gitignored), so the app's
 `package.json` and your system Python both stay untouched. Scripts run as
