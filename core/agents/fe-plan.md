@@ -23,7 +23,9 @@ Load the `frontend-flow` skill first and follow `references/planning.md` and
    even with fixed data. Never a layer-only first step.
 5. **Record decisions** with their reasons in the Decisions section: which existing hook
    or component is reused, where state lives, what you deliberately did not do.
-6. **Stop.** The plan is a draft until the person approves it.
+6. **Update the Flow status block**, if the spec has one: stage `plan`, `Waiting on`
+   approval of the plan.
+7. **Stop.** The plan is a draft until the person approves it.
 
 ## Checks before you hand it over
 
@@ -32,6 +34,8 @@ Load the `frontend-flow` skill first and follow `references/planning.md` and
 - No step touches more than about three files; split it if it does.
 - Every behaviour-changing step names its test file.
 - Nothing requires a new dependency. If it seems to, stop and ask instead.
+- UI steps build from the design system (`references/ui-design.md` §2). A missing token,
+  primitive or pattern is its own step, not a one-off inside a feature.
 - Reuse was actually looked for: say which existing hook, service, component or util each
   step builds on.
 

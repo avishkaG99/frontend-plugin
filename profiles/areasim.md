@@ -56,6 +56,19 @@ All under `areasim-webapp/React-Specs/`:
   UI and UX: `React-Specs/ui-ux/` · Security: `React-Specs/quality-ops/security-spec.md`
   and `React-Specs/ImplementationSpec.md`
 
+Design system — what every screen is built from (read before any UI step):
+
+- `React-Specs/ui-ux/design-system.md` — primitives, patterns, page recipes, do/don't
+- `React-Specs/ui-ux/styling-spec.md` §2.1 — the palette and its usage rules
+- `src/styles/globals.css` — tokens and shell classes (`.page-container`,
+  `.surface-card`, `.admin-table-panel`), the source of truth
+- `/design-system` in the running app — the living catalog, to compare a screenshot
+  against
+- Loading, empty and error states: `React-Specs/ui-ux/error-handling-user-feedback-spec.md`
+
+The cream page background, teal primary and white rounded cards are the brand. Never
+"fix" them toward a more distinctive look in feature work.
+
 Feature specs live in: `areasim-webapp/React-Specs/features/`
 Template: `React-Specs/feature-spec-template.md`
 
@@ -110,6 +123,28 @@ It installs Chromium on first use and adds `.auth/` to `areasim-webapp/.gitignor
 The Playwright runtime lives in `frontend-plugin/.venv` (gitignored), so the app's
 `package.json` and your system Python both stay untouched. Scripts run as
 `frontend-plugin/.venv/bin/python`, never a bare `python3` and never `npx playwright`.
+
+## Test-case library
+
+Use cases and regression test cases, one Markdown file per area, in
+`areasim-webapp/React-Specs/test-cases/` (format and rules: its `README.md`). Committed
+with the code; results are not.
+
+| Area file | Prefix | Owns (for `--impacted`) |
+| --- | --- | --- |
+| `projects.md` | `PRJ` | `src/features/projects/` except `project-surveys/`, `src/routes/_authenticated/{project,projects,utilization-canvas}/` |
+| `surveys.md` | `SUR` | `src/features/projects/project-surveys/`, `src/features/{public-survey,organization-survey-templates}/`, `src/routes/_authenticated/surveys/`, `src/routes/survey.$token.tsx` |
+| `subscription.md` | `SUB` | `src/features/{subscription,pricing}/`, `src/routes/_authenticated/subscription/` |
+| `onboarding.md` | `ONB` | `src/features/{onboarding,welcome}/`, `src/routes/_authenticated/{onboarding,welcome,create-organization}/` |
+| `organization.md` | `ORG` | `src/features/{organization-structure,organizations,organization-switcher}/`, `src/routes/_authenticated/organization/` |
+| `super-admin.md` | `ADM` | `src/features/admin/`, `src/routes/_authenticated/admin/` |
+| `platform.md` | `PLT` | `src/features/{auth,authorization,dashboard,errors}/`, `src/routes/{(auth),(public)}/`, `src/components/layout/`, `src/lib/{auth,api}/` |
+
+A change under `src/components/`, `src/hooks/` or `src/lib/` outside those paths is shared:
+`--impacted` takes the areas whose code imports the changed file, and says so.
+
+Run reports (library runs only): `docs/test-runs/` in the workspace root — local, not in
+any repo.
 
 ## Traps
 

@@ -50,6 +50,14 @@ Capture for every case, passed ones included, because the report cannot be recon
 afterwards: the id, what the case did, what it expected, what was actually observed, the
 status, how many attempts it took, the duration, and the screenshot path when there is one.
 
+### Exploring first, once
+
+For any case that touches a form, a dialog or a dynamic widget, run **one** exploration
+script before the real one: it walks the whole path and prints an accessibility snapshot
+(`page.locator("body").aria_snapshot()`) after each step. Pick every locator from those
+snapshots. One replay beats a scratch script per element, and it uses the same storage
+state as the run. Skip it for plain navigation and read-only checks.
+
 ### Finding elements
 
 Use the accessible name — role plus visible label — as the locator. Never a CSS path
@@ -66,6 +74,17 @@ Wait for the state the case is about: the element visible, the request settled, 
 present. Never a bare sleep. A fixed delay is either slower than needed or shorter than
 reality, usually both on different machines.
 
+### Large runs
+
+A library run can hold dozens of cases. Run them in batches of about ten per script
+invocation, each batch a fresh context on the same storage state, and run Python unbuffered
+(`-u`) so each `CASE|` line arrives as it finishes. Keep a running tally from the lines
+you have parsed; never recompute it from a half-written log. Batching limits what is lost
+when one invocation dies; it does not change results.
+
+A case missing from the log because the script exited first is `BLOCKED`, reason "script
+exited before this case ran" — never silently dropped.
+
 ### Retries
 
 Retry a failing case up to three times, with a short wait between. Take the screenshot on
@@ -76,11 +95,21 @@ A case that fails all three attempts is `FAILED`, with the observed state in one
 sentence — "the dialog never appeared; the page still showed the zone list" — not a stack
 trace.
 
+Before reporting a `FAILED` or `BLOCKED` case, open its screenshot and confirm the failure
+is real. A spinner, a half-loaded page or a toast covering the control is a timing problem:
+re-run that one case in a short follow-up script before settling the status.
+
 ### Mutating cases
 
 When the run is read-only, skip every case that creates, edits or deletes, and mark it
 `SKIPPED (read-only run)`. Do not soften a mutating case into a read-only one; the case as
 written is what the spec says must work.
+
+### Browser settings
+
+Headless Chromium, a 1280 × 1800 viewport, no full-page screenshots. Prefix every Python
+call with `PYTHONUTF8=1` and open logs with `encoding="utf-8"`, so page text outside ASCII
+(Norwegian strings, here) cannot crash the run.
 
 ### Secrets
 

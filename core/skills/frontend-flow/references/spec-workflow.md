@@ -15,9 +15,32 @@ Create it on first contact with the work, not at the end.
 
 The project's template supplies the top: purpose, owner, status, related links, problem
 statement, goals and non-goals, users and context. Keep whatever it defines. This flow adds
-three sections at the bottom, in this order.
+its sections at the bottom, in this order: Flow status, Plan, Test plan (see
+[test-plan.md](test-plan.md)), Library changes (see [test-library.md](test-library.md)),
+Decisions, Log.
 
 ```markdown
+## Flow status
+
+| Field | Value |
+|---|---|
+| Ticket | AR-730 |
+| Repo / branch | areasim-webapp · fix/ar-730-reauth-on-401 |
+| Stage | build |
+| Next | Step 2 — call it from the 401 handler |
+| Waiting on | — |
+| Updated | 2026-09-21 |
+
+- [x] spec — approved 2026-09-20
+- [x] plan — approved 2026-09-20
+- [x] test-plan — 6 cases, 5 automated
+- [x] branch
+- [ ] build — 1 of 3 steps
+- [ ] verify
+- [ ] audit
+- [ ] e2e
+- [ ] handoff
+
 ## Plan
 
 | # | Step | Files | Done |
@@ -37,6 +60,13 @@ three sections at the bottom, in this order.
 - Open: the Entra `login_hint` claim is a portal change, not code.
 ```
 
+### Flow status
+
+The conductor's state: which stage the feature is in, the next concrete move, and what is
+waiting on the person. It is the one section overwritten in place rather than appended to,
+and the format and stage list are in [conductor.md](conductor.md). Any agent that finishes
+a stage updates it when the spec has one; `/fe:run` adds it to a spec that does not.
+
 ### Status line
 
 `Draft` → `Approved` → `In progress` → `Done`. `fe-spec` sets Draft, the person approves,
@@ -46,7 +76,8 @@ plan row is ticked and the gates pass.
 ### Rules
 
 - **Append to the log, never rewrite it.** A wrong turn that was corrected is worth more
-  to the next reader than a tidy file.
+  to the next reader than a tidy file. Flow status is the one exception: it is state, not
+  history.
 - **Absolute dates.** "Yesterday" is useless in six weeks.
 - **A decision needs its reason.** The reason is the part that survives; the decision
   alone reads as arbitrary a month later.

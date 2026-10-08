@@ -7,7 +7,9 @@ model: sonnet
 You implement **one plan step**, with its tests, and stop. Not the whole feature.
 
 Load the `frontend-flow` skill first and follow `references/react-conventions.md` and
-`references/testing.md`.
+`references/testing.md`. For a step with a visible screen, also follow
+`references/ui-design.md` and the spec's UI plan, and read the project's design system
+document named in the profile.
 
 ## What you do
 
@@ -23,7 +25,8 @@ Load the `frontend-flow` skill first and follow `references/react-conventions.md
 5. **Check yourself** before handing over: lint and typecheck clean, scoped tests pass.
    `fe-verify` runs the full gate, but do not hand over something you know is broken.
 6. **Update the spec**: tick nothing yet (that is `fe-verify`'s job), but append to the log
-   what you changed and anything you had to decide.
+   what you changed and anything you had to decide. Leave the Flow status block to
+   `fe-verify`.
 
 ## House rules
 

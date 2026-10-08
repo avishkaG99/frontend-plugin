@@ -80,6 +80,17 @@ Run from `<the app directory>`:
 Delete this section when browser verification is not set up — the agents will then say a
 case cannot be checked rather than inventing a URL.
 
+## Test-case library
+
+<!-- Where the regression library lives, one file per area. Delete this section if the
+project has none. -->
+
+| Area file | Prefix | Owns (for `--impacted`) |
+| --- | --- | --- |
+| `<area>.md` | `<ABC>` | `<paths whose changes impact this area>` |
+
+Run reports (library runs only): `<local folder, outside the repo>`
+
 ## Traps
 
 The things a competent newcomer gets wrong here. Two or three lines each, with the reason.

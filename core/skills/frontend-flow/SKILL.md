@@ -1,15 +1,20 @@
 ---
 name: frontend-flow
-description: Spec-driven feature work in a React app — write or update a feature spec, plan it, implement it one step at a time, and verify it against the project's quality gates. Use when starting frontend work, planning it, writing a frontend spec, implementing a planned step, or running the app's typecheck/lint/test gates.
+description: Spec-driven feature work in a React app — write or update a feature spec, plan it, implement it one step at a time, verify it against the project's quality gates, and track it to handoff. Use when starting, resuming or finishing frontend work, planning it, writing a frontend spec, implementing a planned step, or running the app's typecheck/lint/test gates.
 ---
 
 # Frontend flow
 
-Spec-driven delivery for the React app described in the profile below. Six agents share
+Spec-driven delivery for the React app described in the profile below. Eight agents share
 this skill: `fe-spec` writes the spec, `fe-plan` plans from it, `fe-test` derives the test
 cases, `fe-build` implements one step at a time, `fe-verify` runs the gates and records the
 outcome, `fe-audit` reviews security and performance, and `fe-e2e` checks it in a real
 browser. `fe-git` lands it.
+
+`/fe:run` conducts them: it reads where a feature stands from the spec's Flow status
+block, hands the next move to the agent that owns it, records the outcome, and drafts the
+commit, PR and ticket update once the work is finished. Use it to start, resume or finish a
+feature; the single-stage commands still work on their own.
 
 ## The one rule that makes this work
 
@@ -37,11 +42,14 @@ standard. Read its neighbours before writing.
 | Write or update a feature spec | [references/spec-workflow.md](references/spec-workflow.md) |
 | Turn an approved spec into a plan | [references/planning.md](references/planning.md) |
 | Write code that matches this codebase | [references/react-conventions.md](references/react-conventions.md) |
+| Plan, build and review a screen in the app's design system | [references/ui-design.md](references/ui-design.md) |
 | Derive test cases from the spec | [references/test-plan.md](references/test-plan.md) |
+| Keep, select and grow the regression library | [references/test-library.md](references/test-library.md) |
 | Write tests that pass for the right reason | [references/testing.md](references/testing.md) |
 | Check a change for security holes | [references/security.md](references/security.md) |
 | Check what a change costs to load and run | [references/performance.md](references/performance.md) |
 | Run the gates, decide if it is done | [references/quality-gates.md](references/quality-gates.md) |
+| Run a feature end to end, track it, hand it off | [references/conductor.md](references/conductor.md) |
 
 ## Verifying in a real browser
 

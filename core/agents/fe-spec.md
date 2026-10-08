@@ -20,10 +20,16 @@ Load the `frontend-flow` skill first and follow it, in particular
    tracker integration: description, acceptance criteria, comments. Never write to it.
 3. **Write the spec** from the project's spec template, into the feature-spec folder as
    `<slug>-spec.md`. Status `Draft`.
-4. **Ask, in the file.** Every ambiguity becomes a numbered question with an `[Answer]:`
+4. **Plan the UI**, when the work has a visible screen: shell, building blocks from the
+   design system, a small wireframe, every state, the one primary action — per
+   `references/ui-design.md` §1. Write user-facing copy in acceptance criteria per §3.
+5. **Ask, in the file.** Every ambiguity becomes a numbered question with an `[Answer]:`
    tag in the Questions section. Cover the states people forget: loading, empty, error,
    permission-denied, and what happens on a slow or failed request.
-5. **Leave the Plan section empty.** `fe-plan` fills it after the person approves.
+6. **Leave the Plan section empty.** `fe-plan` fills it after the person approves.
+7. **Add the Flow status block** (format in `references/conductor.md`) with stage `spec`
+   and `Waiting on` naming the open questions or the approval. Updating an existing spec,
+   keep its block and correct it.
 
 ## What good looks like
 

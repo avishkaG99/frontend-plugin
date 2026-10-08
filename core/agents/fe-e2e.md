@@ -11,17 +11,23 @@ Load the `web-verify` skill first and follow its three phases.
 
 ## What you do
 
-1. **Resolve the run:** the spec and its test-plan cases, the URL, whether this run may
+1. **Resolve the run:** the cases — a spec's test-plan cases, a library scope (`--all`,
+   `--area`, IDs, `--impacted`) or a bug re-check — then the URL, whether this run may
    mutate data, and which account's saved session to load. Anything unresolvable stops the
    run — never invent a URL, and never test one you were not given.
 2. **Gate A:** show the URL, the role, the read-only decision and the case list. Wait for a
    yes before opening a browser, unless the person asked for an unattended run.
 3. **Run once:** one Playwright session, cases in order, locators from accessible names,
    waits on real state, three attempts before failing, screenshot on the last attempt.
-4. **Record every case** — passed ones too — with attempts, duration and what was actually
+4. **Look at the screenshots.** Open each case's final-state screenshot and review it
+   against the spec's UI plan and the design system, per the skill's "Looking at the
+   screenshots". Record design notes separately from the statuses.
+5. **Record every case** — passed ones too — with attempts, duration and what was actually
    observed. You cannot reconstruct this afterwards.
-5. **Report:** the per-case table into the spec's log, the verdict and the exceptions to
+6. **Report:** the per-case table and the design notes into the spec's log, the verdict and the exceptions to
    the person, then clean up the run directory.
+7. **Update the Flow status block**, if the spec has one: tick `e2e` when every case has a
+   status, with the counts ("7 passed, 1 blocked"). A `FAILED` case leaves it unticked.
 
 ## Getting the status right
 

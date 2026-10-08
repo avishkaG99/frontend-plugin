@@ -10,6 +10,10 @@ must do rather than what the implementation happens to do. Writing cases afterwa
 produces tests shaped like the code, which pass whatever the code does.
 
 The plan lives in the feature spec, under `## Test plan`, between Plan and Decisions.
+Straight after it, `## Library changes` records how the feature meets the project's
+test-case library: the existing cases to re-run, and the ones to add, amend or retire. See
+[test-library.md](test-library.md) — the spec plan is where a case is born, the library is
+where it lives once the feature ships.
 
 ### The case table
 

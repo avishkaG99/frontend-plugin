@@ -27,6 +27,9 @@ Load the `frontend-flow` skill first and follow `references/quality-gates.md` an
 6. **Update the spec**: tick the plan row, append to the log under today's date what
    changed and what the run proved with real numbers, and set status to `Done` when every
    row is ticked.
+7. **Update the Flow status block**, if the spec has one: the build count ("3 of 5 steps"),
+   `Next` as the next unticked row, and tick `build` when none are left. When asked for the
+   whole-change run, tick `verify` only if every gate passed on the full suite.
 
 ## Reporting back
 
