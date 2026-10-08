@@ -1,17 +1,33 @@
 # Install
 
-## Claude Code, from this checkout
+## 1. Write a profile
 
 ```bash
-python3 scripts/sync.py --profile areasim --install /path/to/project
+cp core/profile.template.md profiles/<name>.md
 ```
 
-Writes `.claude/skills/`, `.claude/agents/`, `.claude/commands/` and `.cursor/rules/` into
-that project. Restart the editor afterwards so they load.
+Fill it in: repos, stack, where code goes, standards, the exact lint / typecheck / test
+commands, base branch, ticket keys, browser verification, test-case library areas, traps.
+Delete any line you cannot answer — the agents treat every line as fact.
 
-## Claude Code, as a plugin
+## 2. Install into the project
 
-Push this repo to GitHub, then in the target project's `.claude/settings.json`:
+### From this checkout (recommended)
+
+```bash
+python3 scripts/sync.py --profile <name> --install /path/to/project
+```
+
+Writes `.claude/skills/`, `.claude/agents/`, `.claude/commands/`, `.claude/hooks/` and
+`.cursor/rules/` into that project, and merges the two hooks (`SessionStart`,
+`PreToolUse`) into its `.claude/settings.json` once, leaving the rest alone. Restart the
+editor afterwards so everything loads. Re-run the same command after any change to
+`core/`, `profiles/` or `vendor/`.
+
+### As a Claude Code plugin
+
+`harness/claude/` is committed and is the plugin's install source. In the target project's
+`.claude/settings.json`:
 
 ```json
 {
@@ -29,19 +45,49 @@ Or, where `/plugin` exists:
 /plugin install frontend-flow@areasim
 ```
 
-Installed this way, Claude Code loads the skills, agents and commands straight from the
-plugin — do not also copy them into `.claude/`, or you get a second copy that drifts.
+Installed this way, the skills, agents, commands and hooks load from the plugin — do not
+also copy them into `.claude/`, or you get a second copy that drifts. The published
+`harness/` is built from one profile; for several projects, publish a branch or tag per
+profile, or use `sync.py --install` per project.
 
-**Profiles and the plugin route.** The published `harness/claude/` is built from one
-profile. For several projects, either publish a branch or tag per profile, or install with
-`sync.py --install` per project.
+### Cursor
 
-## Cursor
+`sync.py --install` writes one rule per skill into `.cursor/rules/` (`frontend-flow`,
+`git-flow`, `web-verify`, `frontend-design`). Cursor has no subagents, slash commands or
+hooks, so each rule carries its skill and every reference inline; the conductor and the
+start-up hook are Claude Code only.
 
-`sync.py --install` writes `.cursor/rules/frontend-flow.mdc` and `git-flow.mdc`. Cursor has
-no subagents, so each rule carries the skill and all of its references inline.
+## 3. Browser verification (optional)
 
-## Check it took
+Playwright runs from a virtual environment inside this checkout, so neither the app nor
+your system Python gains a dependency:
 
-Claude Code: `/fe:spec` should appear in the command list, and `frontend-flow` in the skill
-list. Then run `/fe:spec something small` — it should write a spec file and stop.
+```bash
+python3 -m venv .venv
+.venv/bin/pip install playwright
+.venv/bin/python -m playwright install chromium
+```
+
+Then, depending on how the profile says the app signs in:
+
+- **Scripted login** — create the accounts file and let the person fill it in:
+  `~/.config/frontend-flow/<profile>/test-accounts.env`, one `<ROLE>_EMAIL` and
+  `<ROLE>_PASSWORD` pair per role (`ORG_ADMIN_EMAIL`, `ORG_ADMIN_PASSWORD`, …), mode `600`.
+  `.venv/bin/python scripts/login.py --edit` opens it; `--list` shows which roles are
+  ready; `login.py <role> --headed` tries one sign-in.
+- **Saved storage state** — `.venv/bin/python scripts/capture_auth.py <role>` opens a
+  browser; sign in; the session is saved under the app's gitignored `.auth/`.
+
+Use test accounts only, against local dev only.
+
+## 4. Check it took
+
+In Claude Code: `/fe:run` appears in the command list and `frontend-flow` in the skill
+list. A new session prints nothing until a feature is in progress. Then:
+
+```
+/fe:run "something small"
+```
+
+It should write a spec with a `## Flow status` block, ask its questions, and stop for your
+approval.

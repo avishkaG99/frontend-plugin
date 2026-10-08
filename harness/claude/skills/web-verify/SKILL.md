@@ -289,8 +289,16 @@ python3 $L --json impacted              # areas + Active cases the branch touche
 (In zsh, write the arguments out rather than using `$L`: zsh does not split it into
 words.)
 
-Run reports (library runs only): `docs/test-runs/` in the workspace root — local, not in
-any repo.
+Run reports:
+
+| Kind | Where |
+| --- | --- |
+| Milestone (`--all`, whole `--area`, a feature's final run before its PR) | `areasim-webapp/React-Specs/test-cases/runs/`, committed, plus a row in `runs/README.md` |
+| Everything else | `docs/test-runs/` in the workspace root — local, not in any repo |
+
+Environments a run can name: `local` only for now — app `http://localhost:3000`, API
+`http://localhost:8080/api/v1` (backend repo `areasim-backend`), identity Entra External
+ID dev tenant. Add a row here before any other environment is ever tested.
 
 ## Traps
 

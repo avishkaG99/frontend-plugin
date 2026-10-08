@@ -24,7 +24,7 @@ delegate to agents and ask the person a question.
 | 5 | `build` | `fe-build` + `fe-verify`, one step per move; `fe-e2e` step check on visible steps | every plan row ticked | yes, before a step check opens the browser |
 | 6 | `verify` | `fe-verify` | full gates green on the whole change, Definition of Done walked | — |
 | 7 | `audit` | `fe-audit` | findings reported; anything severe fixed or accepted by the person | yes, if a finding needs a decision |
-| 8 | `e2e` | `fe-e2e` | the spec's not-automated cases **and** the library's impacted cases each have a status; screenshots reviewed | yes, before the browser opens |
+| 8 | `e2e` | `fe-e2e` | the spec's not-automated cases **and** the library's impacted cases each have a status; screenshots reviewed; this final run is a **milestone**, so its report (environment block first) is committed with the library and indexed | yes, before the browser opens |
 | 9 | `handoff` | `fe-test`, `fe-git`, tracker integration | library changes promoted or declined; commit, PR and ticket update drafted and approved or declined | **yes**, per draft |
 | 10 | `done` | — | spec Status `Done`, nothing waiting | — |
 

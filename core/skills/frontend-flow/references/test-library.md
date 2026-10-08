@@ -43,7 +43,8 @@ Each area file has two sections, in this order.
 
 - **IDs** are `UC-<AREA>-NN` and `TC-<AREA>-NNN`, using the area prefixes from the profile.
   They are permanent: never renumbered, never reused, even after a case is retired.
-- **Type**: `Happy`, `Negative`, `Edge`, `Permission`, `Regression` (a bug's trigger).
+- **Type**: `Smoke` (a page opens and shows its main content, for a role), `Happy`,
+  `Negative`, `Edge`, `Permission`, `Regression` (a bug's trigger).
 - **Role**: one of the profile's browser roles, or `any`.
 - **Steps**: one action per step, `<br>` between them so the table stays one row per case.
   Concrete: the page, the control's visible label, the data it needs.
@@ -57,8 +58,11 @@ Each area file has two sections, in this order.
   `Retired` stays in the table with the ticket that retired it, and never runs.
 - **Added in**: the ticket key, or the spec slug when there is none.
 
-No results in the library. A run's outcome goes to a run report (see the profile for
-where), so the file only changes when what the app must do changes.
+No results in the area files. A run's outcome goes to a run report, so those files only
+change when what the app must do changes. **Milestone** runs — everything, a whole area, or
+a feature's final browser run before its PR — are committed beside the library, with an
+index, so anyone can see what was last checked and against which environment. Every other
+run stays local. Where both live is in the profile.
 
 ### The library script
 
@@ -78,6 +82,7 @@ Run `check` after every edit to the library; a library that fails it is not comm
 | `--area <area>` | every `Active` case in one area file | after a change across an area |
 | `TC-SUR-004` (one or more) | those cases | re-running a failure, checking a fix |
 | `UC-SUR-02` | every `Active` case under that use case | checking one user journey |
+| `--type Smoke` | every `Active` case of one type, across areas | the quick check before a PR or release |
 | `--impacted` | `Active` cases in the areas owning the changed files (the diff against the base branch, mapped through the profile), plus any case whose steps name a changed route | the default before handing a change off |
 | a spec slug | the spec's own `## Test plan` cases | the feature under construction |
 

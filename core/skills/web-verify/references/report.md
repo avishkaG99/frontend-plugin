@@ -23,11 +23,35 @@ the answer now, and whoever opens the spec in three months.
 ### Where it goes
 
 - **A feature run** (spec cases, step checks): into the spec's log, as below.
-- **A library run** (`--all`, `--area`, IDs, `--impacted`): a run report at the local path
-  the profile gives, named `<date>-<scope>.md` (`2026-10-08-area-surveys.md`), with the
-  same table plus the URL, role, read-only decision, git branch and commit. When the run
-  happened inside a feature's flow, the spec's log gets one line linking to it.
-- **Never into the library.** Its rows describe what must work, not what last happened.
+- **A milestone run** — `--all`, a whole `--area`, or a feature's final browser run before
+  its PR — gets a report **committed** in the library's runs folder (path in the profile),
+  named `<date>-<scope>.md`, and a row in that folder's index, newest first. The format is
+  the index's own template.
+- **Any other library run** (IDs, `--type`, `--impacted`, re-runs): the same report at the
+  local path the profile gives. Step checks write only to the spec's log.
+- When the run happened inside a feature's flow, the spec's log gets one line linking to
+  the report.
+- **Never into the area files.** Their rows describe what must work, not what last
+  happened.
+
+### The environment block
+
+Every run report opens with the environment, filled from facts, not from memory, so a
+result always says what it was a result *of*:
+
+- **Environment name** — `local`, or the named environment from the profile.
+- **App** — URL, repo, branch, commit (`git rev-parse --short HEAD`), and whether the
+  working tree had uncommitted changes.
+- **API** — URL and, when the backend is a repo here, its branch and commit.
+- **Identity** — which sign-in provider and tenant, never an account.
+- **Browser** — engine and version, headless or not, viewport.
+- **Roles** used, **data** (which test organisation, whether mutations were allowed),
+  start time and duration.
+
+In a committed report, list only failed, blocked, skipped and flaky cases; count the
+passes. Never a screenshot, an email address, a password or a token — describe what was
+seen. A pass against `local` says nothing about any other environment, and the report
+must not imply it does.
 
 ### Into the spec
 

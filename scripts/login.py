@@ -4,6 +4,7 @@
     login.py org-admin                    sign in once, report the landing page, exit
     login.py org-member --headed          the same, with a visible browser
     login.py --list                       which roles are ready (no emails, no passwords)
+    login.py --edit                       open the accounts file in the person's editor
 
 From a run script:
 
@@ -215,13 +216,32 @@ def main():
     ap.add_argument("--profile", default=DEFAULT_PROFILE)
     ap.add_argument("--headed", action="store_true", help="show the browser")
     ap.add_argument("--list", action="store_true", help="which roles are ready")
+    ap.add_argument("--edit", action="store_true",
+                    help="open the accounts file in VS Code (or TextEdit) for the person to fill in")
     args = ap.parse_args()
+
+    if args.edit:
+        # Opens the file in the person's GUI editor. Nothing from it is printed here.
+        import shutil
+        import subprocess
+        path = accounts_file(args.profile)
+        if not path.exists():
+            sys.exit(f"BLOCKED: no accounts file for profile {args.profile!r}")
+        editor = ["code", str(path)] if shutil.which("code") else ["open", "-e", str(path)]
+        subprocess.run(editor, check=False)
+        print(f"opened the {args.profile} accounts file in {editor[0]} — fill in each *_PASSWORD, "
+              "save with Cmd+S, then run --list")
+        return
 
     if args.list:
         try:
             values = read_accounts(args.profile)
         except LoginBlocked as e:
             sys.exit(f"BLOCKED: {e}")
+        path = accounts_file(args.profile)
+        from datetime import datetime
+        saved = datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S")
+        print(f"accounts file last saved {saved}\n")
         roles = sorted({k[: -len("_EMAIL")] for k in values if k.endswith("_EMAIL")})
         for key in roles:
             ready = bool(values.get(f"{key}_EMAIL")) and bool(values.get(f"{key}_PASSWORD"))

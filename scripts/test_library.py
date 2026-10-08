@@ -24,7 +24,7 @@ from pathlib import Path
 
 COLUMNS = ["ID", "UC", "Title", "Type", "Role", "Steps", "Expected", "Automated",
            "Status", "Added in"]
-TYPES = {"Happy", "Negative", "Edge", "Permission", "Regression"}
+TYPES = {"Smoke", "Happy", "Negative", "Edge", "Permission", "Regression"}
 STATUSES = {"Active", "Draft", "Retired"}
 TC_ID = re.compile(r"^TC-([A-Z]{2,5})-(\d{3,})$")
 UC_ID = re.compile(r"^UC-([A-Z]{2,5})-(\d{2,})$")
@@ -323,6 +323,7 @@ def main():
     sel = sub.add_parser("select", help="list Active cases for a scope")
     sel.add_argument("--all", action="store_true")
     sel.add_argument("--area")
+    sel.add_argument("--type", help="only cases of this Type, e.g. Smoke or Permission")
     sel.add_argument("ids", nargs="*", help="TC-… and/or UC-… IDs")
     imp = sub.add_parser("impacted", help="Active cases in the areas the branch changes")
     imp.add_argument("--base", help="base branch (default: areas.json baseBranch)")
@@ -356,9 +357,11 @@ def main():
         sys.exit(1)
 
     if args.cmd == "select":
-        if not (args.all or args.area or args.ids):
-            sys.exit("select needs --all, --area <area>, or IDs")
-        cases = library.select(args.all, args.area, args.ids)
+        if not (args.all or args.area or args.ids or args.type):
+            sys.exit("select needs --all, --area <area>, --type <type>, or IDs")
+        cases = library.select(args.all or not (args.area or args.ids), args.area, args.ids)
+        if args.type:
+            cases = [c for c in cases if c["Type"].lower() == args.type.lower()]
         print(json.dumps([public(c) for c in cases], indent=2) if args.json else "", end="")
         if not args.json:
             print_cases(cases)

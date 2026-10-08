@@ -23,6 +23,8 @@ Verify in a real browser. Target: $ARGUMENTS
    before opening a browser.
 5. Delegate to the `fe-e2e` agent for the Playwright session.
 6. Report per case with statuses that mean what they say, and name any failure with its
-   screenshot. A feature run appends to the spec's log; a library run writes a local run
-   report (path in the profile). List any uncovered behaviour seen as proposed `Draft`
+   screenshot. Every report opens with the environment block. A milestone run (`--all`, a
+   whole `--area`, or a feature's final run before its PR) is committed in the library's
+   runs folder with a row in its index; other library runs write a local report; step
+   checks write only to the spec's log. Paths are in the profile. List any uncovered behaviour seen as proposed `Draft`
    cases. Change nothing in the product, and never write to the library from a run.
