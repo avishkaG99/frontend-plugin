@@ -151,8 +151,42 @@ def merge_settings_hooks(claude_dir):
     return added
 
 
+# Cursor reads skills as rules (.cursor/rules/<skill>.mdc, references inlined), so the agents
+# and commands, written for Claude Code, get this note in front of their body.
+CURSOR_NOTE = (
+    "> **In Cursor:** a skill named here is the rule `.cursor/rules/<skill>.mdc`, and each of "
+    "its `references/<name>.md` files is inlined in that rule under a "
+    "`<!-- references/<name>.md -->` marker. An agent named here is the subagent "
+    "`.cursor/agents/<name>.md`, and a command written `/fe:build` or `/git:pr` is "
+    "`/fe-build` or `/git-pr` here.\n"
+)
+
+
+def split_frontmatter(text):
+    """(frontmatter lines without the --- fences, body) for a file that starts with ---."""
+    if not text.startswith("---\n"):
+        return [], text
+    end = text.index("\n---\n", 4)
+    return text[4:end].splitlines(), text[end + 5:]
+
+
+def cursor_agent(text):
+    """A core agent as a Cursor subagent: Claude model aliases become `inherit`."""
+    front, body = split_frontmatter(text)
+    front = ["model: inherit" if line.startswith("model:") else line for line in front]
+    return "---\n" + "\n".join(front) + f"\n---\n\n{BANNER}\n\n{CURSOR_NOTE}\n{body.lstrip()}"
+
+
+def cursor_command(text, invocation):
+    """A core command as a Cursor command: plain prompt, no frontmatter, no $ARGUMENTS."""
+    front, body = split_frontmatter(text)
+    description = next((l.split(":", 1)[1].strip() for l in front if l.startswith("description:")), "")
+    body = body.replace("$ARGUMENTS", "the text given after the command (if any)")
+    return (f"{BANNER}\n\n# {invocation}\n\n{description}\n\n{CURSOR_NOTE}\n{body.lstrip()}")
+
+
 def build_cursor(profile_text, profile_name):
-    """One .mdc rule per skill: Cursor has no subagents, so the method travels as rules."""
+    """One .mdc rule per skill, plus the agents as subagents and the commands as /<ns>-<name>."""
     files = {}
     for skill_dir in sorted((CORE / "skills").iterdir()):
         if not skill_dir.is_dir():
@@ -165,6 +199,15 @@ def build_cursor(profile_text, profile_name):
         files[f"rules/{skill_dir.name}.mdc"] = "".join(parts)
     for name, skill_files in vendor_skills().items():
         files[f"rules/{name}.mdc"] = skill_files["SKILL.md"]
+    for agent in sorted((CORE / "agents").glob("*.md")):
+        files[f"agents/{agent.name}"] = cursor_agent(agent.read_text())
+    for cmd in sorted((CORE / "commands").glob("*.md")):
+        if cmd.stem not in COMMANDS:
+            sys.exit(f"commands/{cmd.name} is not in COMMANDS in sync.py")
+        namespace, name = COMMANDS[cmd.stem]
+        # Cursor commands are flat files: /fe:run in Claude Code is /fe-run here.
+        files[f"commands/{namespace}-{name}.md"] = cursor_command(
+            cmd.read_text(), f"/{namespace}-{name}")
     return files
 
 

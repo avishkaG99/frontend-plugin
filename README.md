@@ -170,7 +170,8 @@ profiles/<name>.md           one project's facts: repos, stack, paths, commands,
                              roles, library areas, traps
 vendor/<skill>/              third-party skills, pinned and reviewed (SOURCE.md)
 harness/claude/              generated .claude/ layout — also the plugin's install source
-harness/cursor/              generated: one .mdc rule per skill
+harness/cursor/              generated: one .mdc rule per skill, the fe-* agents as
+                             subagents, the commands as /fe-run /fe-spec … /git-pr
 scripts/                     see below
 docs/flow.svg                the diagram above (generated)
 ```

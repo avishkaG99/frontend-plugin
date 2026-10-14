@@ -92,6 +92,32 @@ plan row is ticked and the gates pass.
 - **Record what the tests proved**, not that tests were run. "393 pass" is a fact;
   "tests green" is a claim.
 
+### Related documents
+
+A change is not done while another document still describes the old behaviour. Every spec
+has a `## Related documents` section (before Flow status) listing each other document that
+states the behaviour, rule, role, route, field or copy this change touches — with the line
+or section and what must change:
+
+```markdown
+## Related documents
+
+| Document | Where | Change |
+|---|---|---|
+| React-Specs/features/onboarding/README.md | Role model | Manager joins Admin and SuperAdmin as a writer |
+| React-Specs/features/projects/API-ALIGNMENT-CHANGELOG.md | 2026-09 entry | add a dated note; do not rewrite history |
+| React-Specs/test-cases/projects.md | TC-PRJ-013 | amend: shown for a manager |
+```
+
+Find them by searching, not by memory: grep the standards and feature-spec folders, the
+test-case library, READMEs and changelogs for the names the change touches (the role, the
+helper, the route, the i18n key, the old rule's wording). Write `None found — searched for:
+…` when the search comes back empty, so a reviewer can see it was done.
+
+Each row becomes a plan step (or part of the step that changes the behaviour), and
+`fe-verify` repeats the search before calling the work done. Historical records —
+changelogs, past run reports, journals — get a dated note added, never a rewrite.
+
 ### Reading a ticket
 
 Every spec starts from a ticket, settled before the spec is written (see

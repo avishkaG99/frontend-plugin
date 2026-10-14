@@ -157,8 +157,6 @@ Design system — what every screen is built from (read before any UI step):
 - `React-Specs/ui-ux/styling-spec.md` §2.1 — the palette and its usage rules
 - `src/styles/globals.css` — tokens and shell classes (`.page-container`,
   `.surface-card`, `.admin-table-panel`), the source of truth
-- `/design-system` in the running app — the living catalog, to compare a screenshot
-  against
 - Loading, empty and error states: `React-Specs/ui-ux/error-handling-user-feedback-spec.md`
 
 The cream page background, teal primary and white rounded cards are the brand. Never
@@ -211,10 +209,14 @@ so the repo gains no dependency.
 | `org-manager` | `Manager` | managing projects and teams without organization-admin rights |
 | `org-member` | `Member` | the everyday user: what a member can see and must not be able to change |
 | `architect` | `Architect` (external) | an invited outside party, reaching only assigned projects |
-| `landlord` *(later)* | `Landlord` (external) | an invited building owner, reaching only assigned projects |
+| `landlord` | `Landlord` (external), in the main test organization, granted project `Test 1` | an invited building owner, reaching only assigned projects; same as architect except Room Program edit |
+| `org2-admin` | `Admin`, in a **second** test organization — **Consulting** type, active plan (Insight & Analysis), **0 projects** | empty-project states; consulting-only behaviour |
+| `org2-manager` | `Manager`, in the same organization | the Manager side of those states |
 
 Use one test organization for the org accounts, so a permission case compares the same
-data across roles. Permission cases (Type `Permission`) run under the lowest role
+data across roles. The `org2-*` accounts belong to a second organization (Consulting, with a plan) kept **without projects** on
+purpose. It does **not** reach the journey strip's "Create project" empty state — that needs a *Normal* organization with 0 projects (`dashboard-journey-strip.tsx`: `isConsulting ? !hasPlan : projects.length === 0`), which no test account has yet: cases about empty states use them, and nothing may be left behind in it — a case that
+creates data there deletes it again. Permission cases (Type `Permission`) run under the lowest role
 that must be refused, not under `org-admin`.
 
 Which account signs in for each role, and the organization they share, live only in the
@@ -954,6 +956,32 @@ plan row is ticked and the gates pass.
   rule creates a second copy that drifts.
 - **Record what the tests proved**, not that tests were run. "393 pass" is a fact;
   "tests green" is a claim.
+
+### Related documents
+
+A change is not done while another document still describes the old behaviour. Every spec
+has a `## Related documents` section (before Flow status) listing each other document that
+states the behaviour, rule, role, route, field or copy this change touches — with the line
+or section and what must change:
+
+```markdown
+## Related documents
+
+| Document | Where | Change |
+|---|---|---|
+| React-Specs/features/onboarding/README.md | Role model | Manager joins Admin and SuperAdmin as a writer |
+| React-Specs/features/projects/API-ALIGNMENT-CHANGELOG.md | 2026-09 entry | add a dated note; do not rewrite history |
+| React-Specs/test-cases/projects.md | TC-PRJ-013 | amend: shown for a manager |
+```
+
+Find them by searching, not by memory: grep the standards and feature-spec folders, the
+test-case library, READMEs and changelogs for the names the change touches (the role, the
+helper, the route, the i18n key, the old rule's wording). Write `None found — searched for:
+…` when the search comes back empty, so a reviewer can see it was done.
+
+Each row becomes a plan step (or part of the step that changes the behaviour), and
+`fe-verify` repeats the search before calling the work done. Historical records —
+changelogs, past run reports, journals — get a dated note added, never a rewrite.
 
 ### Reading a ticket
 

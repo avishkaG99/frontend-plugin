@@ -52,10 +52,17 @@ profile, or use `sync.py --install` per project.
 
 ### Cursor
 
-`sync.py --install` writes one rule per skill into `.cursor/rules/` (`frontend-flow`,
-`git-flow`, `web-verify`, `frontend-design`). Cursor has no subagents, slash commands or
-hooks, so each rule carries its skill and every reference inline; the conductor and the
-start-up hook are Claude Code only.
+`sync.py --install` writes into `.cursor/`:
+
+- `rules/` — one rule per skill (`frontend-flow`, `git-flow`, `web-verify`,
+  `frontend-design`), each carrying its skill and every reference inline.
+- `agents/` — the eight `fe-*` agents as Cursor subagents (`model: inherit`).
+- `commands/` — the commands as flat files: `/fe:run` in Claude Code is `/fe-run` in
+  Cursor, `/git:commit` is `/git-commit`, and so on.
+
+Each generated agent and command opens with a short note mapping "skill" and "agent" to
+the Cursor files. The two hooks (Flow status on start-up, the secrets guard) stay Claude
+Code only.
 
 ## 3. Browser verification (optional)
 

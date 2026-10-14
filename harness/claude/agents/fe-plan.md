@@ -30,6 +30,8 @@ Load the `frontend-flow` skill first and follow `references/planning.md` and
 ## Checks before you hand it over
 
 - Every acceptance criterion is covered by at least one step.
+- Every row of the spec's `## Related documents` is covered by a step. Documentation
+  updates are part of the change, not a follow-up.
 - No step invents scope the spec does not carry.
 - No step touches more than about three files; split it if it does.
 - Every behaviour-changing step names its test file.

@@ -157,8 +157,6 @@ Design system — what every screen is built from (read before any UI step):
 - `React-Specs/ui-ux/styling-spec.md` §2.1 — the palette and its usage rules
 - `src/styles/globals.css` — tokens and shell classes (`.page-container`,
   `.surface-card`, `.admin-table-panel`), the source of truth
-- `/design-system` in the running app — the living catalog, to compare a screenshot
-  against
 - Loading, empty and error states: `React-Specs/ui-ux/error-handling-user-feedback-spec.md`
 
 The cream page background, teal primary and white rounded cards are the brand. Never
@@ -211,10 +209,14 @@ so the repo gains no dependency.
 | `org-manager` | `Manager` | managing projects and teams without organization-admin rights |
 | `org-member` | `Member` | the everyday user: what a member can see and must not be able to change |
 | `architect` | `Architect` (external) | an invited outside party, reaching only assigned projects |
-| `landlord` *(later)* | `Landlord` (external) | an invited building owner, reaching only assigned projects |
+| `landlord` | `Landlord` (external), in the main test organization, granted project `Test 1` | an invited building owner, reaching only assigned projects; same as architect except Room Program edit |
+| `org2-admin` | `Admin`, in a **second** test organization — **Consulting** type, active plan (Insight & Analysis), **0 projects** | empty-project states; consulting-only behaviour |
+| `org2-manager` | `Manager`, in the same organization | the Manager side of those states |
 
 Use one test organization for the org accounts, so a permission case compares the same
-data across roles. Permission cases (Type `Permission`) run under the lowest role
+data across roles. The `org2-*` accounts belong to a second organization (Consulting, with a plan) kept **without projects** on
+purpose. It does **not** reach the journey strip's "Create project" empty state — that needs a *Normal* organization with 0 projects (`dashboard-journey-strip.tsx`: `isConsulting ? !hasPlan : projects.length === 0`), which no test account has yet: cases about empty states use them, and nothing may be left behind in it — a case that
+creates data there deletes it again. Permission cases (Type `Permission`) run under the lowest role
 that must be refused, not under `org-admin`.
 
 Which account signs in for each role, and the organization they share, live only in the

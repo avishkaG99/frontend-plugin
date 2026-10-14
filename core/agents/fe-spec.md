@@ -23,14 +23,18 @@ Load the `frontend-flow` skill first and follow it, in particular
 3. **Write the spec** from the project's spec template, into the feature-spec folder as
    `<key>-<slug>-spec.md` (lower-case key, e.g. `ar-812-zone-empty-state-spec.md`), or
    `<slug>-spec.md` for a chore with no ticket. Status `Draft`.
-4. **Plan the UI**, when the work has a visible screen: shell, building blocks from the
+4. **Find the related documents** per `references/spec-workflow.md` "Related documents":
+   search the standards, feature specs, test-case library, READMEs and changelogs for
+   every name the change touches, and write the `## Related documents` table — document,
+   where, what must change. Write `None found — searched for: …` when nothing turns up.
+5. **Plan the UI**, when the work has a visible screen: shell, building blocks from the
    design system, a small wireframe, every state, the one primary action — per
    `references/ui-design.md` §1. Write user-facing copy in acceptance criteria per §3.
-5. **Ask, in the file.** Every ambiguity becomes a numbered question with an `[Answer]:`
+6. **Ask, in the file.** Every ambiguity becomes a numbered question with an `[Answer]:`
    tag in the Questions section. Cover the states people forget: loading, empty, error,
    permission-denied, and what happens on a slow or failed request.
-6. **Leave the Plan section empty.** `fe-plan` fills it after the person approves.
-7. **Add the Flow status block** (format in `references/conductor.md`) with stage `spec`
+7. **Leave the Plan section empty.** `fe-plan` fills it after the person approves.
+8. **Add the Flow status block** (format in `references/conductor.md`) with stage `spec`
    and `Waiting on` naming the open questions or the approval. Updating an existing spec,
    keep its block and correct it.
 
