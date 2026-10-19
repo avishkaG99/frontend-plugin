@@ -184,7 +184,7 @@ npm run test               # whole suite, ~4 minutes, 750+ files
 | Remote | `AreaSim-AS/areasim-webapp`, `AreaSim-AS/areasim-backend` |
 | Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` — pattern `(feat\|fix\|chore)/ar-<number>-<slug>`, lower case; a ticket-less chore is `chore/<slug>` |
 | Ticket keys | `AR-` — the key belongs **in the branch name**, the jira flow reads it from there |
-| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: choose the issue type from the AR project's own types (the `jira` skill can list them; Change Request is used for changes to shipped features, e.g. AR-800). Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `docs/jira/<KEY>.md` |
+| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: choose the issue type from the AR project's own types (the `jira` skill can list them; Change Request is used for changes to shipped features, e.g. AR-800). Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `docs/jira/<KEY>.md`. Finished work: the handoff proposes moving the frontend sub-task to **Verification** (never the parent story, which waits on its backend and testing sub-tasks) |
 
 ## Browser verification
 
@@ -339,7 +339,7 @@ delegate to agents and ask the person a question.
 | 6 | `verify` | `fe-verify` | full gates green on the whole change, Definition of Done walked | — |
 | 7 | `audit` | `fe-audit` | findings reported; anything severe fixed or accepted by the person | yes, if a finding needs a decision |
 | 8 | `e2e` | `fe-e2e` | the spec's not-automated cases **and** the library's impacted cases each have a status; screenshots reviewed; this final run is a **milestone**, so its report (environment block first) is committed with the library and indexed | yes, before the browser opens |
-| 9 | `handoff` | `fe-test`, `fe-git`, tracker integration | library changes promoted or declined; commit, PR and ticket update drafted and approved or declined | **yes**, per draft |
+| 9 | `handoff` | `fe-test`, `fe-git`, tracker integration | library changes promoted or declined; spec written final and committed with the code; PR, ticket comment, status move and worklog drafted and approved or declined | **yes**, per draft |
 | 10 | `done` | — | spec Status `Done`, nothing waiting | — |
 
 `e2e` is skipped, with the reason recorded, only when the change has no visible UI and
@@ -473,20 +473,33 @@ this order and shows each draft before anything leaves the machine:
    conductor shows the `## Library changes` rows. On a yes they are written into the
    library as `Active` (or `Retired`) and the spec rows point at their new IDs; on a no
    they stay `Draft` in the spec. See `references/test-library.md`.
-2. **Spec**: Status `Done`, Flow status all ticked but `handoff`, a closing Log entry that
-   says what the change does and what the final gate run proved, with numbers.
+2. **Spec, in its final state, before the commit**: Status `Done`, every Flow status box
+   ticked including `handoff`, Stage `done`, Next `— (PR review)`, and a closing Log entry
+   that says what the change does and what the final gate run proved, with numbers. The
+   commit carries the finished spec, so nothing is left to write into the repo afterwards.
+   Facts that only exist after the push (PR number, comment and worklog ids) never go in
+   the spec; they go in the tracker journal, which lives outside the app repo.
 3. **Commit draft** via `fe-git`: staging plan path by path, the spec and any library
    files included with the code, message from the Decisions section. Commits on a yes; never pushes unprompted.
 4. **PR draft** via `fe-git` against the base branch: What / Why / How to check / Notes,
    gate numbers, e2e table, open items. Pushes and opens it on a yes.
-5. **Ticket draft**, when the profile names a tracker integration and the work has a key:
-   a progress comment summarising what shipped and the PR link, and the integration's local
-   journal entry. Time is never logged from here unless the person asks for it.
+5. **Ticket drafts**, when the profile names a tracker integration and the work has a key.
+   Shown together, each approved or declined on its own:
+   - a progress comment summarising what shipped and the PR link;
+   - a status move: fetch the ticket's transitions and propose the one the profile names
+     for finished work, by id, never by a guessed name;
+   - a worklog: the ticket's unlogged journal rows for this work, with their recorded
+     times, totalled. Never guess, round or stretch a time; a row with no recorded time is
+     shown as untimed and the person gives the figure or leaves it out. Declining, or
+     "log it later", is a valid answer and leaves the rows ⏳.
+   Every write that is sent lands in the integration's local journal in the same turn.
 6. **A summary to the person**: what shipped, what was verified and how, what was not
    verified and why, what is still open, and the links.
 
-Declining a draft is a valid outcome — record it in the Log ("PR not opened: waiting on
-backend AR-731") and tick `handoff` only when every draft is either done or declined.
+If a draft is declined after the commit, the spec stays as committed and the decline is
+recorded in the tracker journal ("PR not opened: waiting on backend AR-731"), not as a new
+uncommitted edit. A draft declined before the commit is noted in the spec's closing Log
+entry and Next instead.
 
 ### What the conductor never does
 

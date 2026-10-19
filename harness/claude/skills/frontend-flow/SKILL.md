@@ -184,7 +184,7 @@ npm run test               # whole suite, ~4 minutes, 750+ files
 | Remote | `AreaSim-AS/areasim-webapp`, `AreaSim-AS/areasim-backend` |
 | Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` — pattern `(feat\|fix\|chore)/ar-<number>-<slug>`, lower case; a ticket-less chore is `chore/<slug>` |
 | Ticket keys | `AR-` — the key belongs **in the branch name**, the jira flow reads it from there |
-| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: choose the issue type from the AR project's own types (the `jira` skill can list them; Change Request is used for changes to shipped features, e.g. AR-800). Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `docs/jira/<KEY>.md` |
+| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: choose the issue type from the AR project's own types (the `jira` skill can list them; Change Request is used for changes to shipped features, e.g. AR-800). Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `docs/jira/<KEY>.md`. Finished work: the handoff proposes moving the frontend sub-task to **Verification** (never the parent story, which waits on its backend and testing sub-tasks) |
 
 ## Browser verification
 

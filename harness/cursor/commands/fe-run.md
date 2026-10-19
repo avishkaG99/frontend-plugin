@@ -36,8 +36,9 @@ Conduct a frontend feature. Target: the text given after the command (if any)
    With `--auto`, carry on to the next move instead, until one of the conductor's stop
    conditions is hit.
 9. **When the plan is fully built and verified**, run the handoff: audit, the full browser
-   run with screenshot review, then the commit, PR and ticket drafts, each shown for
+   run with screenshot review, the spec written in its final state, then the commit, PR
+   and ticket drafts (comment, status move, worklog from the journal), each shown for
    approval. Finish with the summary of what shipped, what was verified, and what is still open.
 
-Never approve on the person's behalf, never push or post without a yes for that specific
-draft, and never log time unless asked.
+Never approve on the person's behalf, never push, post, move a ticket or log time without
+a yes for that specific draft, and never guess a time the journal does not record.
