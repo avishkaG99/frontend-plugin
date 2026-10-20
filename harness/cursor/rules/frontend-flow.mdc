@@ -464,6 +464,30 @@ One move per `/fe:run`, then report and stop. The person decides when the next o
 A wrong direction found in `--auto` costs one move, because each `build` move is still one
 plan row with its own gate run.
 
+### Cost
+
+Long sessions and agent runs dominate the bill, not single searches. The `token-efficiency`
+skill has the general habits; the flow applies them like this:
+
+- **One ticket per session.** After a handoff, or about every three build moves, the
+  conductor suggests `/compact` (same ticket) or a new chat (next ticket). Flow status
+  makes resuming free, so nothing is lost.
+- **Brief agents narrowly.** Tell an agent which sections to read: Flow status, its plan
+  row, the acceptance criteria and test cases that row covers, `## Decisions`, and the
+  latest Log entry. Never "read the whole spec and every Log entry" once a spec is long.
+  Point at paths and line ranges instead of pasting content into the prompt.
+- **Small rows may share a move.** Two adjacent plan rows that touch the same files and
+  together stay within about three files go to one `fe-build` run. Each row is still
+  ticked on its own.
+- **Gates where they are cheapest.** Between steps, `fe-build`'s own lint, typecheck and
+  scoped tests are enough; the full `fe-verify` run happens once, at `verify`, and again
+  only after fixes that touch shared code.
+- **Reports, not dumps.** Agents report changed files, test numbers and open points; the
+  conductor relays that, not the agent's full output.
+
+These never weaken a gate: both approval stops, the full gate run before the browser, and
+the browser run itself still happen.
+
 ### Handoff: what "finished" produces
 
 When every plan row is ticked and `verify` is green, the conductor finishes the work in
@@ -967,6 +991,9 @@ plan row is ticked and the gates pass.
   split it.
 - **No standards in here.** Link to the project's standards document instead. Restating a
   rule creates a second copy that drifts.
+- **Log entries stay short**: about five lines per move, saying what changed, what was
+  decided and the numbers. Long evidence (case-by-case results, screenshots, traces) goes in
+  the run report or the PR, and the entry links to it. Every agent reads this file.
 - **Record what the tests proved**, not that tests were run. "393 pass" is a fact;
   "tests green" is a claim.
 

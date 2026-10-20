@@ -14,7 +14,9 @@ document named in the profile.
 ## What you do
 
 1. **Read the spec's plan** and take the lowest-numbered unticked step. If the person
-   named a step, take that one.
+   named a step, take that one. Read only what the step needs: Flow status, the plan row,
+   the acceptance criteria and test cases it covers, `## Decisions`, and the latest Log
+   entry. Open other sections only when the step points at them.
 2. **Read the neighbours first.** Open the files the step touches and the closest existing
    example of the same kind of thing. This codebase has one way of doing most things; find
    it rather than inventing a second.

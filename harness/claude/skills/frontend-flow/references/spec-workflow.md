@@ -89,6 +89,9 @@ plan row is ticked and the gates pass.
   split it.
 - **No standards in here.** Link to the project's standards document instead. Restating a
   rule creates a second copy that drifts.
+- **Log entries stay short**: about five lines per move, saying what changed, what was
+  decided and the numbers. Long evidence (case-by-case results, screenshots, traces) goes in
+  the run report or the PR, and the entry links to it. Every agent reads this file.
 - **Record what the tests proved**, not that tests were run. "393 pass" is a fact;
   "tests green" is a claim.
 
