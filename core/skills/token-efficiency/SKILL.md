@@ -29,6 +29,26 @@ Long chats, large context, and heavy subagents often dominate cost. Fix those be
 
 Do not weaken project gates (spec/plan approval, governing standards) to save tokens.
 
+## Output, MCP, models, and first-pass (compound savings)
+
+These cut cost in different parts of the bill. Stack them with the habits above.
+
+### Terse replies (output tokens)
+
+Output is often billed higher than input. Default to dense answers: no filler openers, no unsolicited walkthroughs, no restating the question. Lead with the result; add detail only when asked or when a gate/approval needs it. If the user asks for explanation, tone, or a draft for humans (spec prose, Jira comment), drop terseness for that turn.
+
+### MCP only when needed
+
+Each connected MCP server can load large tool schemas into context every turn. Call MCP only when the task needs that system (e.g. Jira). Prefer one targeted operation over discovering or listing every tool. Do not enable or probe unused MCP servers “just in case.”
+
+### Model choice (Cursor / Claude)
+
+In Cursor, `fe-*` agents use `model: inherit` — they follow the parent chat. Pick **Auto** or a cheaper model in the picker when cost matters; use a stronger model for spec/plan/build. Do not invent model names or change agent defs without the person asking.
+
+### First-pass accuracy beats short replies
+
+One re-prompt on a large context re-reads tens of thousands of tokens. Read the governing standard once and match it; ask ambiguous product questions before writing code. Prefer preventing a wrong build over compressing a correct one.
+
 ## Read selectively and expand when needed
 
 - Use available filtered reads and searches that fit the task and the harness's tool guidance. Use shell pipelines for data transformations and queries the native tools do not cover.
