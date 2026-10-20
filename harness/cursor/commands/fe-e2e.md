@@ -30,6 +30,7 @@ Verify in a real browser. Target: the text given after the command (if any)
 6. Report per case with statuses that mean what they say, and name any failure with its
    screenshot. Every report opens with the environment block. A milestone run (`--all`, a
    whole `--area`, or a feature's final run before its PR) is committed in the library's
-   runs folder with a row in its index; other library runs write a local report; step
+   runs folder in **one file per ticket or scope** (`<key>.md`), each new run added as a
+   section at the top, with one row in its index; other library runs write a local report; step
    checks write only to the spec's log. Paths are in the profile. List any uncovered behaviour seen as proposed `Draft`
    cases. Change nothing in the product, and never write to the library from a run.

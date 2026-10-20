@@ -25,11 +25,14 @@ the answer now, and whoever opens the spec in three months.
 - **A feature run** (spec cases, step checks): into the spec's log, as below.
 - **A milestone run** — `--all`, a whole `--area`, or a feature's final browser run before
   its PR — gets a report **committed** in the library's runs folder (path in the profile),
-  one file per **day and scope**, named `<date>-<scope>.md`, and a row in that folder's
-  index, newest first. Another run of the same scope on the same day is **added to that
-  file** as a new `## Run N — HH:MM` section with its own environment block — earlier runs
-  are never edited — and the file's `Latest:` line and its index row are updated to the
-  newest result and the run count. The format is the index's own template.
+  **one file per scope, never one per date**: a feature's runs live in one file named after
+  its ticket (`<key>.md`, e.g. `ar-867.md`; a ticket-less chore uses its slug), and a library
+  run in one file per scope (`all.md`, `area-<area>.md`). Every later run of that scope, on
+  any day, is **added to the same file** as a new `## Run N — YYYY-MM-DD HH:MM` section at
+  the top, with its own environment block — earlier runs are never edited — and the file's
+  `Latest:` line and its single index row are updated to the newest result and the run
+  count. The format is the index's own template. Older dated files from before this rule
+  stay as they are.
 - **Any other library run** (IDs, `--type`, `--impacted`, re-runs): the same report at the
   local path the profile gives. Step checks write only to the spec's log.
 - When the run happened inside a feature's flow, the spec's log gets one line linking to

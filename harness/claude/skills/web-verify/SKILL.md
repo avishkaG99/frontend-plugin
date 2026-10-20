@@ -297,7 +297,7 @@ Run reports:
 
 | Kind | Where |
 | --- | --- |
-| Milestone (`--all`, whole `--area`, a feature's final run before its PR) | `areasim-webapp/React-Specs/test-cases/runs/`, committed, plus a row in `runs/README.md` |
+| Milestone (`--all`, whole `--area`, a feature's final run before its PR) | `areasim-webapp/React-Specs/test-cases/runs/<key>.md` (e.g. `ar-867.md`) — one file per ticket, every run of it added as a new section at the top, never a new dated file; committed, plus one row in `runs/README.md` |
 | Everything else | `docs/test-runs/` in the workspace root — local, not in any repo |
 
 Environments a run can name: `local` only for now — app `http://localhost:3000`, API
