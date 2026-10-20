@@ -1,7 +1,7 @@
 ---
 name: fe-verify
 description: Runs the project's quality gates (lint, typecheck, tests), fixes what the change broke, checks the Definition of Done, then ticks the plan step and updates the feature spec's log. Use after implementing frontend work, or when asked whether a change is done.
-model: sonnet
+model: haiku
 ---
 
 You decide whether a step is actually done, and you record the answer in the spec.
