@@ -55,7 +55,8 @@ profile, or use `sync.py --install` per project.
 `sync.py --install` writes into `.cursor/`:
 
 - `rules/` — one rule per skill (`frontend-flow`, `git-flow`, `web-verify`,
-  `frontend-design`), each carrying its skill and every reference inline.
+  `token-efficiency`, `frontend-design`), each carrying its skill and every
+  reference inline.
 - `agents/` — the eight `fe-*` agents as Cursor subagents (`model: inherit`).
 - `commands/` — the commands as flat files: `/fe:run` in Claude Code is `/fe-run` in
   Cursor, `/git:commit` is `/git-commit`, and so on.

@@ -161,6 +161,7 @@ core/                        project-neutral method — edit here
                              test library, testing, security, performance, gates, conductor
   skills/git-flow/           branches, commits, PRs, review follow-up
   skills/web-verify/         browser runs: auth, session, report, bug re-check
+  skills/token-efficiency/   bounded reads/searches, session habits, cheaper fe-build/e2e use
   agents/                    fe-spec fe-plan fe-test fe-build fe-verify fe-audit fe-e2e fe-git
   commands/                  /fe:run /fe:spec /fe:plan /fe:test /fe:build /fe:audit /fe:e2e
                              /git:commit /git:pr
