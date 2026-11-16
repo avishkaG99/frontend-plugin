@@ -210,7 +210,7 @@ so the repo gains no dependency.
 | --- | --- |
 | Dev server | `npm run dev` in `areasim-webapp/`, `http://localhost:3000` |
 | API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
-| Sign-in | Entra External ID (`areasimdevexternal.ciamlogin.com`), email then password. **Scripted login** via `frontend-plugin/scripts/login.py` — a saved storage state cannot work here: MSAL keeps tokens in `sessionStorage` (`src/lib/auth/msal-config.ts`), which Playwright never saves |
+| Sign-in | Entra External ID (`areasimdevexternal.ciamlogin.com`), email then password. **Scripted login** via `webtesterEnv/login.py` (a copy `sync.py --install` places in the workspace) — a saved storage state cannot work here: MSAL keeps tokens in `sessionStorage` (`src/lib/auth/msal-config.ts`), which Playwright never saves |
 | Credentials | `~/.config/frontend-flow/areasim/test-accounts.env`, filled in by the person, read only by `login.py`. Agents never open it — the `fe-guard-secrets` hook blocks it |
 | Roles | one test account per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
 | Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
@@ -241,7 +241,7 @@ local.
 Sign in from a run script, once per role:
 
 ```python
-sys.path.insert(0, "frontend-plugin/scripts")
+sys.path.insert(0, "webtesterEnv")
 from login import sign_in, LoginBlocked
 landing = sign_in(page, "org-admin", "http://localhost:3000")
 ```
@@ -250,15 +250,24 @@ Check which roles are ready, or try one sign-in by hand (prints only the role an
 landing path, never an email or password):
 
 ```bash
-frontend-plugin/.venv/bin/python frontend-plugin/scripts/login.py --list
-frontend-plugin/.venv/bin/python frontend-plugin/scripts/login.py org-admin [--headed]
+webtesterEnv/.venv/bin/python webtesterEnv/login.py --list
+webtesterEnv/.venv/bin/python webtesterEnv/login.py org-admin [--headed]
 ```
 
 `capture_auth.py` and `.auth/` storage states are not used for this app.
 
-The Playwright runtime lives in `frontend-plugin/.venv` (gitignored), so the app's
-`package.json` and your system Python both stay untouched. Scripts run as
-`frontend-plugin/.venv/bin/python`, never a bare `python3` and never `npx playwright`.
+Everything the browser runs need lives in `webtesterEnv/` at the workspace root, one per
+machine: `login.py` (copied there by `sync.py --install`; edit the source in
+`frontend-plugin/scripts/`, never the copy) and the Playwright runtime in
+`webtesterEnv/.venv`, so the app's `package.json` and your system Python both stay
+untouched. Scripts run as `webtesterEnv/.venv/bin/python`, never a bare `python3` and never
+`npx playwright`. Setting it up on a new machine:
+
+```bash
+python3 -m venv webtesterEnv/.venv
+webtesterEnv/.venv/bin/pip install playwright
+webtesterEnv/.venv/bin/python -m playwright install chromium
+```
 
 ## Test-case library
 

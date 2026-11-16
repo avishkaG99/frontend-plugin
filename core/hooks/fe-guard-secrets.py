@@ -21,7 +21,7 @@ PROTECTED = [
     re.compile(r"FE_FLOW_ACCOUNTS"),
 ]
 REASON = ("Blocked by fe-guard-secrets: test-account credentials and saved sessions are read "
-          "only by frontend-plugin/scripts/login.py and the browser run. Use `login.py --list` "
+          "only by login.py and the browser run. Use `login.py --list` "
           "to see which roles are ready; ask the person to edit the file themselves.")
 
 

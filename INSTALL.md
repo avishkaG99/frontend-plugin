@@ -67,13 +67,16 @@ Code only.
 
 ## 3. Browser verification (optional)
 
-Playwright runs from a virtual environment inside this checkout, so neither the app nor
-your system Python gains a dependency:
+`sync.py --install` copies the login helper into the project's `webtesterEnv/` folder
+(`webtesterEnv/login.py`, a generated copy: edit `scripts/login.py` here, then re-install).
+Playwright runs from a virtual environment beside it, so neither the app nor your system
+Python gains a dependency, and a teammate needs only the project, not this checkout. From
+the project folder:
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install playwright
-.venv/bin/python -m playwright install chromium
+python3 -m venv webtesterEnv/.venv
+webtesterEnv/.venv/bin/pip install playwright
+webtesterEnv/.venv/bin/python -m playwright install chromium
 ```
 
 Then, depending on how the profile says the app signs in:
@@ -81,7 +84,7 @@ Then, depending on how the profile says the app signs in:
 - **Scripted login** — create the accounts file and let the person fill it in:
   `~/.config/frontend-flow/<profile>/test-accounts.env`, one `<ROLE>_EMAIL` and
   `<ROLE>_PASSWORD` pair per role (`ORG_ADMIN_EMAIL`, `ORG_ADMIN_PASSWORD`, …), mode `600`.
-  `.venv/bin/python scripts/login.py --edit` opens it; `--list` shows which roles are
+  `webtesterEnv/.venv/bin/python webtesterEnv/login.py --edit` opens it; `--list` shows which roles are
   ready; `login.py <role> --headed` tries one sign-in.
 - **Saved storage state** — `.venv/bin/python scripts/capture_auth.py <role>` opens a
   browser; sign in; the session is saved under the app's gitignored `.auth/`.

@@ -1,0 +1,214 @@
+# Project profile — areaSim (installed in the areasim-webapp repo)
+
+## Repos
+
+| Repo | Holds |
+| --- | --- |
+| `areasim-webapp` | the React app — this flow's scope |
+| `areasim-backend` | .NET API — out of scope, name it as a dependency |
+
+The project root is the `areasim-webapp` repo itself; every path below is relative to it.
+`areasim-backend` is a separate repo and usually not checked out beside it: a backend
+change is named as a dependency, never made from here.
+
+## The app
+
+| Thing | This project |
+| --- | --- |
+| Build / dev | Vite (`@vitejs/plugin-react`) |
+| Router | TanStack Router, file routes, generated `routeTree.gen.ts` |
+| Server state | TanStack Query |
+| Client state | Redux Toolkit (`src/store`) |
+| HTTP | one Axios instance, `src/lib/api/http-client.ts` |
+| Styling | Tailwind + shadcn/ui (`src/components/ui`) |
+| i18n | react-i18next via `useAppI18n()`, `src/locales/{en-US,nb-NO}.json` |
+| Tests | Vitest + Testing Library, jsdom, setup in `src/test/setup.ts` |
+
+## Where code goes
+
+```
+src/routes/            TanStack file routes; `-` prefixed files are NOT routes
+  _authenticated/      guarded area (-authenticated-before-load.ts, -authenticated-route.tsx)
+src/features/<area>/   the feature's own components/, hooks/, lib/, schema/
+src/components/        shared: ui/, layout/, dropdowns/, loaders/
+src/hooks/api/         one file per API area, exporting TanStack Query hooks
+src/lib/api/services/  Axios calls; hooks wrap these, components never call them directly
+src/lib/               auth, router, i18n, config, utils — no feature imports
+src/types/             shared API and domain types
+src/locales/           en-US.json, nb-NO.json — always updated together
+```
+
+Data flows component → query hook → service → `httpClient`. `httpClient` already handles
+auth headers, the tenant header, 401 recovery and the network error page: never add a
+second Axios instance or re-implement any of that.
+
+A file used by one feature lives in that feature. It moves to `src/components/` or
+`src/lib/` when a second feature needs it, not in anticipation.
+
+## Standards
+
+All under `React-Specs/`:
+
+- Index, including the fixed stack decisions: `React-Specs/SPEC-LIST.md`
+- Definition of Done: `React-Specs/quality-ops/definition-of-done-spec.md`
+- Testing strategy: `React-Specs/quality-ops/testing-strategy-spec.md`
+- PR checklist: `React-Specs/quality-ops/pr-review-checklist-spec.md`
+- Architecture: `React-Specs/architecture/` · Data: `React-Specs/data/` ·
+  UI and UX: `React-Specs/ui-ux/` · Security: `React-Specs/quality-ops/security-spec.md`
+  and `React-Specs/ImplementationSpec.md`
+
+Design system — what every screen is built from (read before any UI step):
+
+- `React-Specs/ui-ux/design-system.md` — primitives, patterns, page recipes, do/don't
+- `React-Specs/ui-ux/styling-spec.md` §2.1 — the palette and its usage rules
+- `src/styles/globals.css` — tokens and shell classes (`.page-container`,
+  `.surface-card`, `.admin-table-panel`), the source of truth
+- Loading, empty and error states: `React-Specs/ui-ux/error-handling-user-feedback-spec.md`
+
+The cream page background, teal primary and white rounded cards are the brand. Never
+"fix" them toward a more distinctive look in feature work.
+
+Feature specs live in: `React-Specs/features/`
+Template: `React-Specs/feature-spec-template.md`
+
+## Commands
+
+Run from the repo root:
+
+```bash
+npm run lint
+npm run typecheck          # tsc -b AND tsconfig.test.json — test-only type errors surface
+npx vitest run src/lib/auth  # one area, while iterating
+npm run test               # whole suite, ~4 minutes, 750+ files
+```
+
+## Git
+
+| Thing | This project |
+| --- | --- |
+| Base branch | `develop` (not `main`) |
+| Remote | `AreaSim-AS/areasim-webapp`, `AreaSim-AS/areasim-backend` |
+| Branch names | `feat/ar-720-utilization-dashboard-charts`, `fix/ar-724-project-module-fixes` — pattern `(feat\|fix\|chore)/ar-<number>-<slug>`, lower case; a ticket-less chore is `chore/<slug>` |
+| Ticket keys | `AR-` — the key belongs **in the branch name**, the jira flow reads it from there |
+| Tracker | Jira, through the `jira` skill (project `AR`). New tickets: choose the issue type from the AR project's own types (the `jira` skill can list them; Change Request is used for changes to shipped features, e.g. AR-800). Ask for the parent epic (e.g. AR-27 for dashboard work); never guess one. Every write is shown first and journalled in `.flow-local/jira/<KEY>.md` (gitignored). Without the `jira` skill installed, draft the text for the person to paste; never write to Jira any other way. Finished work: the handoff proposes moving the frontend sub-task to **Verification** (never the parent story, which waits on its backend and testing sub-tasks) |
+
+## Browser verification
+
+Local only. There is no PR-driven or CI browser suite, and no Playwright in
+`package.json` — runs use Python `playwright` as a harness beside the app,
+so the repo gains no dependency.
+
+| Thing | This project |
+| --- | --- |
+| Dev server | `npm run dev` at the repo root, `http://localhost:3000` |
+| API it talks to | `http://localhost:8080/api/v1` — the backend must be running too |
+| Sign-in | Entra External ID (`areasimdevexternal.ciamlogin.com`), email then password. **Scripted login** via `tools/frontend-flow/login.py` — a saved storage state cannot work here: MSAL keeps tokens in `sessionStorage` (`src/lib/auth/msal-config.ts`), which Playwright never saves |
+| Credentials | `~/.config/frontend-flow/areasim/test-accounts.env`, filled in by the person, read only by `login.py`. Agents never open it — the `fe-guard-secrets` hook blocks it |
+| Roles | one test account per role, named after the app's roles in `src/features/authorization/lib/org-roles.ts` — see below |
+| Mutations | allowed against local dev only. Never against the Azure Static Web App or a real tenant |
+| Browser window | **visible by default** (`headless=False`, ~250 ms slow-mo) so the person can watch every run; `--headless` only when they ask for a background run |
+
+| Role | App role | Use for |
+| --- | --- | --- |
+| `super-admin` | `SuperAdmin` (`isSuperAdmin`) | the admin portal: tenants, templates, platform settings |
+| `org-admin` | `Admin` | everything inside one organization: members, roles, structure, billing |
+| `org-manager` | `Manager` | managing projects and teams without organization-admin rights |
+| `org-member` | `Member` | the everyday user: what a member can see and must not be able to change |
+| `architect` | `Architect` (external) | an invited outside party, reaching only assigned projects |
+| `landlord` | `Landlord` (external), in the main test organization, granted project `Test 1` | an invited building owner, reaching only assigned projects; same as architect except Room Program edit |
+| `org2-admin` | `Admin`, in a **second** test organization — **Consulting** type, active plan (Insight & Analysis), **0 projects** | empty-project states; consulting-only behaviour |
+| `org2-manager` | `Manager`, in the same organization | the Manager side of those states |
+
+Use one test organization for the org accounts, so a permission case compares the same
+data across roles. The `org2-*` accounts belong to a second organization (Consulting, with a plan) kept **without projects** on
+purpose. It does **not** reach the journey strip's "Create project" empty state — that needs a *Normal* organization with 0 projects (`dashboard-journey-strip.tsx`: `isConsulting ? !hasPlan : projects.length === 0`), which no test account has yet: cases about empty states use them, and nothing may be left behind in it — a case that
+creates data there deletes it again. Permission cases (Type `Permission`) run under the lowest role
+that must be refused, not under `org-admin`.
+
+Which account signs in for each role, and the organization they share, live only in the
+local credentials file — never here: this plugin may be published, and a test account in a
+public repo is an invitation. The role name is the contract; the account behind it is
+local.
+
+Sign in from a run script, once per role:
+
+```python
+sys.path.insert(0, "tools/frontend-flow")
+from login import sign_in, LoginBlocked
+landing = sign_in(page, "org-admin", "http://localhost:3000")
+```
+
+Check which roles are ready, or try one sign-in by hand (prints only the role and the
+landing path, never an email or password):
+
+```bash
+tools/frontend-flow/.venv/bin/python tools/frontend-flow/login.py --list
+tools/frontend-flow/.venv/bin/python tools/frontend-flow/login.py org-admin [--headed]
+```
+
+`capture_auth.py` and `.auth/` storage states are not used for this app.
+
+The Playwright runtime lives in `tools/frontend-flow/.venv` (gitignored; set up once per
+machine, see `tools/frontend-flow/README.md`), so the app's
+`package.json` and your system Python both stay untouched. Scripts run as
+`tools/frontend-flow/.venv/bin/python`, never a bare `python3` and never `npx playwright`.
+
+## Test-case library
+
+Use cases and regression test cases, one Markdown file per area, in
+`React-Specs/test-cases/` (format and rules: its `README.md`). Committed
+with the code; results are not.
+
+| Area file | Prefix |
+| --- | --- |
+| `projects.md` | `PRJ` |
+| `surveys.md` | `SUR` |
+| `subscription.md` | `SUB` |
+| `onboarding.md` | `ONB` |
+| `organization.md` | `ORG` |
+| `super-admin.md` | `ADM` |
+| `platform.md` | `PLT` |
+
+Which code each area owns, the roles and the base branch are in
+`React-Specs/test-cases/areas.json` — the one source for `--impacted`. A new feature
+folder or route folder gets an entry there in the same change.
+
+The library script answers selection and validation the same way every time. Run from the
+repo root:
+
+```bash
+L="tools/frontend-flow/test_library.py --app . --library React-Specs/test-cases"
+python3 $L check                        # IDs, columns, statuses, roles, test files exist
+python3 $L select --all                 # or --area surveys, or TC-/UC- IDs
+python3 $L --json impacted              # areas + Active cases the branch touches, vs origin/develop
+```
+
+(In zsh, write the arguments out rather than using `$L`: zsh does not split it into
+words.)
+
+Run reports:
+
+| Kind | Where |
+| --- | --- |
+| Milestone (`--all`, whole `--area`, a feature's final run before its PR) | `React-Specs/test-cases/runs/<key>.md` (e.g. `ar-867.md`) — one file per ticket, every run of it added as a new section at the top, never a new dated file; committed, plus one row in `runs/README.md` |
+| Everything else | `.flow-local/test-runs/` — gitignored, never committed |
+
+Environments a run can name: `local` only for now — app `http://localhost:3000`, API
+`http://localhost:8080/api/v1` (backend repo `areasim-backend`), identity Entra External
+ID dev tenant. Add a row here before any other environment is ever tested.
+
+## Traps
+
+- **No `:` in an i18n key.** i18next reads it as a namespace separator, so the string
+  silently renders wrong. Put the colon in the value instead.
+- **Konva / canvas does not mount under jsdom.** Test the logic beside it
+  (`canvas-pointer.ts`, hooks, geometry), never the canvas component.
+- **`npm run typecheck`, not `tsc -b`.** Only the script covers `tsconfig.test.json`, so
+  `tsc -b` alone misses type errors in tests.
+- **Radix needs the pointer-capture and `scrollIntoView` stubs** already in
+  `src/test/setup.ts`. That is why a Select or Dialog opens under jsdom at all.
+- **Never hand-edit `routeTree.gen.ts`.** Add the route file, then `npm run router:generate`
+  (which `typecheck` and `build` already run).
+- **No `use client`.** ESLint rejects it: this is a Vite SPA with no RSC boundary.
+- **A module with top-level state** (locks, single-flight promises, caches) needs
+  `vi.resetModules()` and a per-test re-import, or one test decides the next one's result.

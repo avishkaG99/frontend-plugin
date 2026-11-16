@@ -8,7 +8,7 @@
 
 From a run script:
 
-    sys.path.insert(0, "frontend-plugin/scripts")
+    sys.path.insert(0, "<the folder holding this script>")
     from login import sign_in, LoginBlocked
     landing = sign_in(page, "org-admin", "http://localhost:3000")
 
@@ -250,7 +250,8 @@ def main():
     if not args.role:
         ap.error("give a role, or --list")
     if not _python_has_playwright():
-        sys.exit("playwright is not installed for this python — use frontend-plugin/.venv/bin/python")
+        sys.exit("playwright is not installed for this python — use the .venv/bin/python "
+                 "beside this script (see the profile's Browser verification section)")
 
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
